@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tackle your problems, one board at a time.">
+    <meta name="author" content="Johnny Ji">
+
+    <title>Boards!</title>
+    <%#
+      Styles folder in `priv` must be called `css`, otherwise Phoenix will throw =>
+      `Resource interpreted as Stylesheet but transferred with MIME type text/html`
+     %>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
+  </head>
+
+  <body>
+    <main id="app-mount"></main>
+    <script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
+  </body>
+</html>

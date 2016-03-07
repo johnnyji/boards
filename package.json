@@ -28,10 +28,12 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "babel-plugin-add-module-exports": "^0.1.2",
     "bourbon": "^4.2.6",
     "bourbon-neat": "^1.7.2",
     "classnames": "^2.2.1",
     "es6-promise": "^3.0.2",
+    "fetch": "^1.0.1",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
     "invariant": "^2.2.0",
@@ -46,6 +48,7 @@
     "react-dnd-html5-backend": "^2.0.2",
     "react-dom": "^0.14.5",
     "react-gravatar": "^2.2.2",
+    "react-immutable-proptypes": "^1.7.0",
     "react-page-click": "^2.0.0",
     "react-redux": "^4.0.4",
     "react-router": "^2.0.0-rc5",

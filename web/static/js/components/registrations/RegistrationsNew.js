@@ -1,11 +1,90 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import pureRender from 'pure-render-decorator';
 
+import {register} from '../../actions/AuthActionCreators';
+import {updateField} from '../../actions/RegistrationActionCreators';
+
+const displayName = 'RegistrationsNew';
+
+@connect((state) => ({
+  errors: state.registration.get('errors'),
+  user: state.registration.get('user')
+}))
+@pureRender
 export default class RegistrationsNew extends Component {
+  static displayName = displayName;
+
+  static propTypes = {
+    errors: ImmutablePropTypes.contains({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      password: PropTypes.string,
+      email: PropTypes.string
+    }).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    user: ImmutablePropTypes.contains({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      password: PropTypes.string,
+      email: PropTypes.string
+    }).isRequired
+  };
+
   render() {
+    const {user} = this.props;
+
     return (
-      <div>
+      <form onSubmit={this._handleSubmit}>
         <h1>Welcome to Boards ya'll!</h1>
-      </div>
+        <input
+          type='text'
+          onChange={this._handleChange}
+          name='firstName'
+          placeholder='First Name'
+          value={user.get('firstName')}/>
+        <input
+          type='text'
+          onChange={this._handleChange}
+          name='lastName'
+          placeholder='Last Name'
+          value={user.get('lastName')}/>
+        <input
+          type='email'
+          onChange={this._handleChange}
+          name='email'
+          placeholder='Email'
+          value={user.get('email')}/>
+        <input
+          type='password'
+          onChange={this._handleChange}
+          name='password'
+          placeholder='Password'
+          value={user.get('password')}/>
+        <input
+          type='password'
+          onChange={this._handleChange}
+          name='passwordConfirmation'
+          placeholder='Confirm'
+          value={user.get('passwordConfirmation')}/>
+        <input
+          type='submit'
+          value='Register'/>
+      </form>
     );
   }
+
+  _handleChange = (event) => {
+    const {name, value} = event.target;
+    this.props.dispatch(updateField(name, value));
+  };
+
+  _handleSubmit = (event) => {
+    event.preventDefault();
+
+    const {dispatch, user} = this.props;
+    dispatch(register(user.toJS()));
+  };
+
 }

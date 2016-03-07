@@ -6,6 +6,6 @@ const initialState = Immutable.fromJS({
   error: null
 });
 
-export default function sessionReducer(state = initialState, action) {
+export default function SessionReducer (state = initialState, action) {
   return state;
 }

@@ -1,0 +1,11 @@
+/*
+  Auth Action Types
+ */
+
+export default {
+
+  REGISTER: 'REGISTER',
+  REGISTER_SUCCESS: 'REGISTER_SUCCESS',
+  REGISTER_FAILURE: 'REGISTER_FAILURE'
+
+};

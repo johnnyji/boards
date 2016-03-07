@@ -1,5 +1,6 @@
 defmodule Boards.Router do
   use Boards.Web, :router
+  import IEx, only: [pry: 0]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,17 +12,29 @@ defmodule Boards.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :convert_to_snake_case
   end
 
   scope "/", Boards do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     # Routing will be done on the front-end using `react-router`
     get "*path", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Boards do
-  #   pipe_through :api
-  # end
+  scope "/api", Boards do
+    pipe_through :api
+
+    scope "/v1" do
+      post "/registrations", RegistrationController, :create
+    end
+  end
+
+  # Converts incoming params into `snake_case` so it matches the convention of Elixir
+  defp convert_to_snake_case(conn, params) do
+    IEx.pry
+    IO.puts("body_params: " <> conn.body_params)
+    IO.puts("body_params: " <> conn.body_params)
+  end
+    
 end

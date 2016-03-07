@@ -27,3 +27,11 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+# Configures Guardian
+config :guardian, Guardian,
+  issuer: "Boards",
+  ttl: {3, :days},
+  verify_issuer: true, # optional
+  secret_key: "vcvNslHketeqR/50Ssz8gevnJcIoLXMq7PaUfjcI02BsSeHa3R1LbqDbx6+k1FF2",
+  serializer: Boards.GuardianSerializer

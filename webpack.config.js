@@ -35,7 +35,7 @@ var config = module.exports = {
         loader: 'babel',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-decorators-legacy'],
+          plugins: ['add-module-exports', 'transform-decorators-legacy'],
           presets: ['react', 'es2015', 'stage-2', 'stage-0']
         }
       }, {

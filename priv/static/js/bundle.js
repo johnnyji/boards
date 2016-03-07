@@ -77,7 +77,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _Root = __webpack_require__(238);
+	var _Root = __webpack_require__(240);
 
 	var _Root2 = _interopRequireDefault(_Root);
 
@@ -24767,7 +24767,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _immutable = __webpack_require__(237);
+	var _immutable = __webpack_require__(238);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24796,6 +24796,7 @@
 
 	  return createStoreWithMiddleware(_index2.default);
 	}
+	module.exports = exports['default'];
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
@@ -25928,16 +25929,22 @@
 
 	var _reactRouterRedux = __webpack_require__(234);
 
-	var _Session = __webpack_require__(236);
+	var _Registration = __webpack_require__(236);
+
+	var _Registration2 = _interopRequireDefault(_Registration);
+
+	var _Session = __webpack_require__(239);
 
 	var _Session2 = _interopRequireDefault(_Session);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = (0, _redux.combineReducers)({
+	  registration: _Registration2.default,
 	  routing: _reactRouterRedux.routerReducer,
 	  session: _Session2.default
 	});
+	module.exports = exports['default'];
 
 /***/ },
 /* 236 */
@@ -25948,29 +25955,73 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = sessionReducer;
+	exports.default = RegistrationReducer;
 
-	var _immutable = __webpack_require__(237);
+	var _RegistrationActionTypes = __webpack_require__(237);
+
+	var _immutable = __webpack_require__(238);
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var initialState = _immutable2.default.fromJS({
-	  currentUser: null,
-	  socket: null,
-	  error: null
+	  user: {
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    password: null,
+	    passwordConfirmation: null
+	  },
+	  errors: {
+	    firstName: null,
+	    lastName: null,
+	    email: null,
+	    password: null,
+	    passwordConfirmation: null
+	  }
 	});
 
-	function sessionReducer() {
+	function RegistrationReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
 	  var action = arguments[1];
 
-	  return state;
+	  switch (action.type) {
+
+	    case _RegistrationActionTypes.UPDATE_FIELD:
+	      var _action$data = action.data;
+	      var field = _action$data.field;
+	      var value = _action$data.value;
+
+	      return state.setIn(['user', field], value);
+
+	    default:
+	      return state;
+
+	  }
 	}
+	module.exports = exports['default'];
 
 /***/ },
 /* 237 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var RegistrationActionTypes = {
+
+	  UPDATE_FIELD: 'UPDATE_FIELD'
+
+	};
+
+	exports.default = RegistrationActionTypes;
+	module.exports = exports['default'];
+
+/***/ },
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -30957,7 +31008,38 @@
 	}));
 
 /***/ },
-/* 238 */
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = SessionReducer;
+
+	var _immutable = __webpack_require__(238);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var initialState = _immutable2.default.fromJS({
+	  currentUser: null,
+	  socket: null,
+	  error: null
+	});
+
+	function SessionReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+	  var action = arguments[1];
+
+	  return state;
+	}
+	module.exports = exports['default'];
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30975,11 +31057,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(239);
+	var _reactRedux = __webpack_require__(241);
 
 	var _reactRouter = __webpack_require__(164);
 
-	var _index = __webpack_require__(249);
+	var _index = __webpack_require__(251);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -31021,9 +31103,10 @@
 	  store: _react.PropTypes.object.isRequired
 	}, _temp);
 	exports.default = Root;
+	module.exports = exports['default'];
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31031,11 +31114,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(240);
+	var _Provider = __webpack_require__(242);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(242);
+	var _connect = __webpack_require__(244);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -31045,7 +31128,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31055,7 +31138,7 @@
 
 	var _react = __webpack_require__(6);
 
-	var _storeShape = __webpack_require__(241);
+	var _storeShape = __webpack_require__(243);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -31129,7 +31212,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31145,7 +31228,7 @@
 	});
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31157,23 +31240,23 @@
 
 	var _react = __webpack_require__(6);
 
-	var _storeShape = __webpack_require__(241);
+	var _storeShape = __webpack_require__(243);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(243);
+	var _shallowEqual = __webpack_require__(245);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(244);
+	var _wrapActionCreators = __webpack_require__(246);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _isPlainObject = __webpack_require__(245);
+	var _isPlainObject = __webpack_require__(247);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(248);
+	var _hoistNonReactStatics = __webpack_require__(250);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -31473,7 +31556,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31504,7 +31587,7 @@
 	}
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31521,11 +31604,11 @@
 	}
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isHostObject = __webpack_require__(246),
-	    isObjectLike = __webpack_require__(247);
+	var isHostObject = __webpack_require__(248),
+	    isObjectLike = __webpack_require__(249);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -31593,7 +31676,7 @@
 
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports) {
 
 	/**
@@ -31619,7 +31702,7 @@
 
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports) {
 
 	/**
@@ -31653,7 +31736,7 @@
 
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports) {
 
 	/**
@@ -31699,7 +31782,7 @@
 
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31714,24 +31797,405 @@
 
 	var _reactRouter = __webpack_require__(164);
 
-	var _AppLayout = __webpack_require__(250);
+	var _AuthContainer = __webpack_require__(252);
+
+	var _AuthContainer2 = _interopRequireDefault(_AuthContainer);
+
+	var _AppLayout = __webpack_require__(254);
 
 	var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
-	var _RegistrationsNew = __webpack_require__(251);
+	var _BoardsShow = __webpack_require__(255);
+
+	var _BoardsShow2 = _interopRequireDefault(_BoardsShow);
+
+	var _HomeIndex = __webpack_require__(256);
+
+	var _HomeIndex2 = _interopRequireDefault(_HomeIndex);
+
+	var _RegistrationsNew = __webpack_require__(257);
 
 	var _RegistrationsNew2 = _interopRequireDefault(_RegistrationsNew);
+
+	var _SessionsNew = __webpack_require__(264);
+
+	var _SessionsNew2 = _interopRequireDefault(_SessionsNew);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { component: _AppLayout2.default },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _RegistrationsNew2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '/sign_up', component: _RegistrationsNew2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/sign_in', component: _SessionsNew2.default }),
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/', component: _AuthContainer2.default },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _HomeIndex2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'boards/:id', component: _BoardsShow2.default })
+	  )
 	);
+	module.exports = exports['default'];
 
 /***/ },
-/* 250 */
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class, _class2, _temp;
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(241);
+
+	var _reactRouterRedux = __webpack_require__(234);
+
+	var _reactImmutableProptypes = __webpack_require__(253);
+
+	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AuthContainer = (_dec = (0, _reactRedux.connect)(function (state) {
+	  return {
+	    currentUser: state.session.get('currentUser')
+	  };
+	}), _dec(_class = (_temp = _class2 = function (_Component) {
+	  _inherits(AuthContainer, _Component);
+
+	  function AuthContainer() {
+	    _classCallCheck(this, AuthContainer);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AuthContainer).apply(this, arguments));
+	  }
+
+	  _createClass(AuthContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var dispatch = this.context.dispatch;
+
+	      var jwt = localStorage.getItem('jwt');
+
+	      if (jwt) {
+	        dispatch(AuthActionCreators.fetchUser(jwt));
+	      } else {
+	        dispatch((0, _reactRouterRedux.push)('/sign_up'));
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Hello!'
+	      );
+	    }
+	  }]);
+
+	  return AuthContainer;
+	}(_react.Component), _class2.displayName = 'AuthContainer', _class2.contextTypes = {
+	  dispatch: _react.PropTypes.func.isRequired
+	}, _temp)) || _class);
+	exports.default = AuthContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * This is a straight rip-off of the React.js ReactPropTypes.js proptype validators,
+	 * modified to make it possible to validate Immutable.js data.
+	 *     ImmutableTypes.listOf is patterned after React.PropTypes.arrayOf, but for Immutable.List
+	 *     ImmutableTypes.shape  is based on React.PropTypes.shape, but for any Immutable.Iterable
+	 */
+	"use strict";
+
+	var Immutable = __webpack_require__(238);
+
+	var ANONYMOUS = "<<anonymous>>";
+
+	var ImmutablePropTypes = {
+	  listOf: createListOfTypeChecker,
+	  mapOf: createMapOfTypeChecker,
+	  orderedMapOf: createOrderedMapOfTypeChecker,
+	  setOf: createSetOfTypeChecker,
+	  orderedSetOf: createOrderedSetOfTypeChecker,
+	  stackOf: createStackOfTypeChecker,
+	  iterableOf: createIterableOfTypeChecker,
+	  recordOf: createRecordOfTypeChecker,
+	  shape: createShapeChecker,
+	  contains: createShapeChecker,
+	  mapContains: createMapContainsChecker,
+	  // Primitive Types
+	  list: createImmutableTypeChecker("List", Immutable.List.isList),
+	  map: createImmutableTypeChecker("Map", Immutable.Map.isMap),
+	  orderedMap: createImmutableTypeChecker("OrderedMap", Immutable.OrderedMap.isOrderedMap),
+	  set: createImmutableTypeChecker("Set", Immutable.Set.isSet),
+	  orderedSet: createImmutableTypeChecker("OrderedSet", Immutable.OrderedSet.isOrderedSet),
+	  stack: createImmutableTypeChecker("Stack", Immutable.Stack.isStack),
+	  seq: createImmutableTypeChecker("Seq", Immutable.Seq.isSeq),
+	  record: createImmutableTypeChecker("Record", function (isRecord) {
+	    return isRecord instanceof Immutable.Record;
+	  }),
+	  iterable: createImmutableTypeChecker("Iterable", Immutable.Iterable.isIterable)
+	};
+
+	function getPropType(propValue) {
+	  var propType = typeof propValue;
+	  if (Array.isArray(propValue)) {
+	    return "array";
+	  }
+	  if (propValue instanceof RegExp) {
+	    // Old webkits (at least until Android 4.0) return 'function' rather than
+	    // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+	    // passes PropTypes.object.
+	    return "object";
+	  }
+	  if (propValue instanceof Immutable.Iterable) {
+	    return "Immutable." + propValue.toSource().split(" ")[0];
+	  }
+	  return propType;
+	}
+
+	function createChainableTypeChecker(validate) {
+	  function checkType(isRequired, props, propName, componentName, location) {
+	    componentName = componentName || ANONYMOUS;
+	    if (props[propName] == null) {
+	      var locationName = location;
+	      if (isRequired) {
+	        return new Error("Required " + locationName + " `" + propName + "` was not specified in " + ("`" + componentName + "`."));
+	      }
+	    } else {
+	      return validate(props, propName, componentName, location);
+	    }
+	  }
+
+	  var chainedCheckType = checkType.bind(null, false);
+	  chainedCheckType.isRequired = checkType.bind(null, true);
+
+	  return chainedCheckType;
+	}
+
+	function createImmutableTypeChecker(immutableClassName, immutableClassTypeValidator) {
+	  function validate(props, propName, componentName, location) {
+	    var propValue = props[propName];
+	    if (!immutableClassTypeValidator(propValue)) {
+	      var propType = getPropType(propValue);
+	      return new Error("Invalid " + location + " `" + propName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `" + immutableClassName + "`."));
+	    }
+	    return null;
+	  }
+	  return createChainableTypeChecker(validate);
+	}
+
+	function createIterableTypeChecker(typeChecker, immutableClassName, immutableClassTypeValidator) {
+
+	  function validate(props, propName, componentName, location) {
+	    var propValue = props[propName];
+	    if (!immutableClassTypeValidator(propValue)) {
+	      var locationName = location;
+	      var propType = getPropType(propValue);
+	      return new Error("Invalid " + locationName + " `" + propName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an Immutable.js " + immutableClassName + "."));
+	    }
+
+	    if (typeof typeChecker !== "function") {
+	      return new Error("Invalid typeChecker supplied to `" + componentName + "` " + ("for propType `" + propName + "`, expected a function."));
+	    }
+
+	    var propValues = propValue.toArray();
+	    for (var i = 0, len = propValues.length; i < len; i++) {
+	      var error = typeChecker(propValues, i, componentName, location);
+	      if (error instanceof Error) {
+	        return error;
+	      }
+	    }
+	  }
+	  return createChainableTypeChecker(validate);
+	}
+
+	function createListOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "List", Immutable.List.isList);
+	}
+
+	function createMapOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "Map", Immutable.Map.isMap);
+	}
+
+	function createOrderedMapOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "OrderedMap", Immutable.OrderedMap.isOrderedMap);
+	}
+
+	function createSetOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "Set", Immutable.Set.isSet);
+	}
+
+	function createOrderedSetOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "OrderedSet", Immutable.OrderedSet.isOrderedSet);
+	}
+
+	function createStackOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "Stack", Immutable.Stack.isStack);
+	}
+
+	function createIterableOfTypeChecker(typeChecker) {
+	  return createIterableTypeChecker(typeChecker, "Iterable", Immutable.Iterable.isIterable);
+	}
+
+	function createRecordOfTypeChecker(recordKeys) {
+	  function validate(props, propName, componentName, location) {
+	    var propValue = props[propName];
+	    var propType = getPropType(propValue);
+	    if (!(propValue instanceof Immutable.Record)) {
+	      var locationName = location;
+	      return new Error("Invalid " + locationName + " `" + propName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected an Immutable.js Record."));
+	    }
+	    for (var key in recordKeys) {
+	      var checker = recordKeys[key];
+	      if (!checker) {
+	        continue;
+	      }
+	      var mutablePropValue = propValue.toObject();
+	      var error = checker(mutablePropValue, key, componentName, location);
+	      if (error) {
+	        return error;
+	      }
+	    }
+	  }
+	  return createChainableTypeChecker(validate);
+	}
+
+	// there is some irony in the fact that shapeTypes is a standard hash and not an immutable collection
+	function createShapeTypeChecker(shapeTypes) {
+	  var immutableClassName = arguments[1] === undefined ? "Iterable" : arguments[1];
+	  var immutableClassTypeValidator = arguments[2] === undefined ? Immutable.Iterable.isIterable : arguments[2];
+
+	  function validate(props, propName, componentName, location) {
+	    var propValue = props[propName];
+	    var propType = getPropType(propValue);
+	    if (!immutableClassTypeValidator(propValue)) {
+	      var locationName = location;
+	      return new Error("Invalid " + locationName + " `" + propName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected an Immutable.js " + immutableClassName + "."));
+	    }
+	    var mutablePropValue = propValue.toObject();
+	    for (var key in shapeTypes) {
+	      var checker = shapeTypes[key];
+	      if (!checker) {
+	        continue;
+	      }
+	      var error = checker(mutablePropValue, key, componentName, location);
+	      if (error) {
+	        return error;
+	      }
+	    }
+	  }
+	  return createChainableTypeChecker(validate);
+	}
+
+	function createShapeChecker(shapeTypes) {
+	  return createShapeTypeChecker(shapeTypes);
+	}
+
+	function createMapContainsChecker(shapeTypes) {
+	  return createShapeTypeChecker(shapeTypes, "Map", Immutable.Map.isMap);
+	}
+
+	module.exports = ImmutablePropTypes;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class, _class2, _temp;
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(241);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var displayName = 'AppLayout';
+
+	// @connect makes `dispatch` avaliable to use a prop
+	var AppLayout = (_dec = (0, _reactRedux.connect)(function () {
+	  return {};
+	}), _dec(_class = (_temp = _class2 = function (_Component) {
+	  _inherits(AppLayout, _Component);
+
+	  function AppLayout() {
+	    _classCallCheck(this, AppLayout);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AppLayout).apply(this, arguments));
+	  }
+
+	  _createClass(AppLayout, [{
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return {
+	        dispatch: this.props.dispatch
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'main',
+	        { className: displayName },
+	        _react2.default.createElement(
+	          'header',
+	          { className: displayName + '-header' },
+	          'Boards!'
+	        ),
+	        this.props.children
+	      );
+	    }
+	  }]);
+
+	  return AppLayout;
+	}(_react.Component), _class2.displayName = displayName, _class2.propTypes = {
+	  dispatch: _react.PropTypes.func.isRequired
+	}, _class2.childContextTypes = {
+	  dispatch: _react.PropTypes.func.isRequired
+	}, _temp)) || _class);
+	exports.default = AppLayout;
+	module.exports = exports['default'];
+
+/***/ },
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31757,38 +32221,35 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var displayName = 'AppLayout';
+	var displayName = 'BoardsShow';
 
-	var AppLayout = (_temp = _class = function (_Component) {
-	  _inherits(AppLayout, _Component);
+	var BoardsShow = (_temp = _class = function (_Component) {
+	  _inherits(BoardsShow, _Component);
 
-	  function AppLayout() {
-	    _classCallCheck(this, AppLayout);
+	  function BoardsShow() {
+	    _classCallCheck(this, BoardsShow);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AppLayout).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(BoardsShow).apply(this, arguments));
 	  }
 
-	  _createClass(AppLayout, [{
+	  _createClass(BoardsShow, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'main',
-	        { className: displayName },
-	        _react2.default.createElement(
-	          'header',
-	          { className: displayName + '-header' },
-	          'Boards!'
-	        )
+	        'div',
+	        null,
+	        'Boards Show!'
 	      );
 	    }
 	  }]);
 
-	  return AppLayout;
+	  return BoardsShow;
 	}(_react.Component), _class.displayName = displayName, _temp);
-	exports.default = AppLayout;
+	exports.default = BoardsShow;
+	module.exports = exports['default'];
 
 /***/ },
-/* 251 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31799,6 +32260,8 @@
 	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
 
 	var _react = __webpack_require__(6);
 
@@ -31812,34 +32275,411 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var RegistrationsNew = function (_Component) {
-	  _inherits(RegistrationsNew, _Component);
+	var displayName = 'HomeIndex';
 
-	  function RegistrationsNew() {
-	    _classCallCheck(this, RegistrationsNew);
+	var HomeIndex = (_temp = _class = function (_Component) {
+	  _inherits(HomeIndex, _Component);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(RegistrationsNew).apply(this, arguments));
+	  function HomeIndex() {
+	    _classCallCheck(this, HomeIndex);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(HomeIndex).apply(this, arguments));
 	  }
 
-	  _createClass(RegistrationsNew, [{
+	  _createClass(HomeIndex, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        'Home Index!'
+	      );
+	    }
+	  }]);
+
+	  return HomeIndex;
+	}(_react.Component), _class.displayName = displayName, _temp);
+	exports.default = HomeIndex;
+	module.exports = exports['default'];
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class, _class2, _temp2;
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(241);
+
+	var _reactImmutableProptypes = __webpack_require__(253);
+
+	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
+
+	var _pureRenderDecorator = __webpack_require__(258);
+
+	var _pureRenderDecorator2 = _interopRequireDefault(_pureRenderDecorator);
+
+	var _AuthActionCreators = __webpack_require__(261);
+
+	var _RegistrationActionCreators = __webpack_require__(263);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var displayName = 'RegistrationsNew';
+
+	var RegistrationsNew = (_dec = (0, _reactRedux.connect)(function (state) {
+	  return {
+	    errors: state.registration.get('errors'),
+	    user: state.registration.get('user')
+	  };
+	}), _dec(_class = (0, _pureRenderDecorator2.default)(_class = (_temp2 = _class2 = function (_Component) {
+	  _inherits(RegistrationsNew, _Component);
+
+	  function RegistrationsNew() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, RegistrationsNew);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RegistrationsNew)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this._handleChange = function (event) {
+	      var _event$target = event.target;
+	      var name = _event$target.name;
+	      var value = _event$target.value;
+
+	      _this.props.dispatch((0, _RegistrationActionCreators.updateField)(name, value));
+	    }, _this._handleSubmit = function (event) {
+	      event.preventDefault();
+
+	      var _this$props = _this.props;
+	      var dispatch = _this$props.dispatch;
+	      var user = _this$props.user;
+
+	      dispatch((0, _AuthActionCreators.register)(user.toJS()));
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(RegistrationsNew, [{
+	    key: 'render',
+	    value: function render() {
+	      var user = this.props.user;
+
+
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: this._handleSubmit },
 	        _react2.default.createElement(
 	          'h1',
 	          null,
 	          'Welcome to Boards ya\'ll!'
-	        )
+	        ),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          onChange: this._handleChange,
+	          name: 'firstName',
+	          placeholder: 'First Name',
+	          value: user.get('firstName') }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          onChange: this._handleChange,
+	          name: 'lastName',
+	          placeholder: 'Last Name',
+	          value: user.get('lastName') }),
+	        _react2.default.createElement('input', {
+	          type: 'email',
+	          onChange: this._handleChange,
+	          name: 'email',
+	          placeholder: 'Email',
+	          value: user.get('email') }),
+	        _react2.default.createElement('input', {
+	          type: 'password',
+	          onChange: this._handleChange,
+	          name: 'password',
+	          placeholder: 'Password',
+	          value: user.get('password') }),
+	        _react2.default.createElement('input', {
+	          type: 'password',
+	          onChange: this._handleChange,
+	          name: 'passwordConfirmation',
+	          placeholder: 'Confirm',
+	          value: user.get('passwordConfirmation') }),
+	        _react2.default.createElement('input', {
+	          type: 'submit',
+	          value: 'Register' })
 	      );
 	    }
 	  }]);
 
 	  return RegistrationsNew;
-	}(_react.Component);
-
+	}(_react.Component), _class2.displayName = displayName, _class2.propTypes = {
+	  errors: _reactImmutableProptypes2.default.contains({
+	    firstName: _react.PropTypes.string,
+	    lastName: _react.PropTypes.string,
+	    password: _react.PropTypes.string,
+	    email: _react.PropTypes.string
+	  }).isRequired,
+	  dispatch: _react.PropTypes.func.isRequired,
+	  user: _reactImmutableProptypes2.default.contains({
+	    firstName: _react.PropTypes.string,
+	    lastName: _react.PropTypes.string,
+	    password: _react.PropTypes.string,
+	    email: _react.PropTypes.string
+	  }).isRequired
+	}, _temp2)) || _class) || _class);
 	exports.default = RegistrationsNew;
+	module.exports = exports['default'];
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @author Félix Girault <felix.girault@gmail.com>
+	 * @license MIT
+	 */
+	'use strict';
+
+	var shallowCompare = __webpack_require__(259);
+
+
+
+	/**
+	 * Tells if a component should update given it's next props
+	 * and state.
+	 *
+	 * @param object nextProps Next props.
+	 * @param object nextState Next state.
+	 */
+	function shouldComponentUpdate(nextProps, nextState) {
+	  return shallowCompare(this, nextProps, nextState);
+	}
+
+	/**
+	 * Makes the given component "pure".
+	 *
+	 * @param object component Component.
+	 */
+	function pureRenderDecorator(component) {
+	  component.prototype.shouldComponentUpdate = shouldComponentUpdate;
+	}
+
+
+
+	module.exports = pureRenderDecorator;
+
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(260);
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	* @providesModule shallowCompare
+	*/
+
+	'use strict';
+
+	var shallowEqual = __webpack_require__(122);
+
+	/**
+	 * Does a shallow comparison for props and state.
+	 * See ReactComponentWithPureRenderMixin
+	 */
+	function shallowCompare(instance, nextProps, nextState) {
+	  return !shallowEqual(instance.props, nextProps) || !shallowEqual(instance.state, nextState);
+	}
+
+	module.exports = shallowCompare;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AuthActionTypes = __webpack_require__(262);
+
+	/*
+	  Auth Action Creators
+	 */
+	exports.default = {
+	  register: function register(user) {
+	    var _this = this;
+
+	    debugger;
+	    return function (dispatch) {
+	      fetch('/api/v1/registrations', {
+	        method: 'post',
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({ user: user })
+	      }).then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        debugger;
+	        localStorage.setItem('jwt', res.jwt);
+	        dispatch(_this.registerSuccess(res.user));
+	      }).catch(function (err) {
+	        debugger;
+	        dispatch(_this.registerFailure(res.error));
+	      });
+	    };
+	  },
+	  registerSuccess: function registerSuccess(user) {
+	    return {
+	      type: _AuthActionTypes.REGISTER_SUCCESS,
+	      data: { user: user }
+	    };
+	  },
+	  registerFailure: function registerFailure(err) {
+	    return {
+	      type: _AuthActionTypes.REGISTER_FAILURE,
+	      data: { err: err }
+	    };
+	  }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/*
+	  Auth Action Types
+	 */
+
+	exports.default = {
+
+	  REGISTER: 'REGISTER',
+	  REGISTER_SUCCESS: 'REGISTER_SUCCESS',
+	  REGISTER_FAILURE: 'REGISTER_FAILURE'
+
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _RegistrationActionTypes = __webpack_require__(237);
+
+	/*
+	  Registration Action Creators
+	 */
+	exports.default = {
+	  updateField: function updateField(field, value) {
+	    return {
+	      type: _RegistrationActionTypes.UPDATE_FIELD,
+	      data: { field: field, value: value }
+	    };
+	  }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _class, _temp;
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var displayName = 'SessionsNew';
+
+	var SessionsNew = (_temp = _class = function (_Component) {
+	  _inherits(SessionsNew, _Component);
+
+	  function SessionsNew() {
+	    _classCallCheck(this, SessionsNew);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SessionsNew).apply(this, arguments));
+	  }
+
+	  _createClass(SessionsNew, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'New Session!'
+	      );
+	    }
+	  }]);
+
+	  return SessionsNew;
+	}(_react.Component), _class.displayName = displayName, _temp);
+	exports.default = SessionsNew;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

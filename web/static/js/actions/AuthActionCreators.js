@@ -1,3 +1,4 @@
+import http from '../utils/http';
 import {
   REGISTER,
   REGISTER_SUCCESS,
@@ -9,17 +10,8 @@ import {
 export default {
 
   register(user) {
-    debugger;
     return (dispatch) => {
-      fetch('/api/v1/registrations', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({user})
-      })
-        .then((res) => res.json())
+      http.post('/api/v1/registrations', user) 
         .then((res) => {
           debugger;
           localStorage.setItem('jwt', res.jwt);
@@ -44,6 +36,6 @@ export default {
       type: REGISTER_FAILURE,
       data: {err}
     };
-  },
+  }
 
 };

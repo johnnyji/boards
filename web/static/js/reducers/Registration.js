@@ -7,15 +7,15 @@ const initialState = Immutable.fromJS({
     firstName: null,
     lastName: null,
     email: null,
-    password: null,
-    passwordConfirmation: null
+    encryptedPassword: null,
+    encryptedPasswordConfirmation: null
   },
   errors: {
     firstName: null,
     lastName: null,
     email: null,
-    password: null,
-    passwordConfirmation: null
+    encryptedPassword: null,
+    encryptedPasswordConfirmation: null
   }
 });
 

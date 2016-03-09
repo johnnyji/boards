@@ -20,14 +20,16 @@ export default class RegistrationsNew extends Component {
     errors: ImmutablePropTypes.contains({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
-      password: PropTypes.string,
+      encryptedPassword: PropTypes.string,
+      encryptedPasswordConfirmation: PropTypes.string,
       email: PropTypes.string
     }).isRequired,
     dispatch: PropTypes.func.isRequired,
     user: ImmutablePropTypes.contains({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
-      password: PropTypes.string,
+      encryptedPassword: PropTypes.string,
+      encryptedPasswordConfirmation: PropTypes.string,
       email: PropTypes.string
     }).isRequired
   };
@@ -59,15 +61,15 @@ export default class RegistrationsNew extends Component {
         <input
           type='password'
           onChange={this._handleChange}
-          name='password'
+          name='encryptedPassword'
           placeholder='Password'
-          value={user.get('password')}/>
+          value={user.get('encryptedPassword')}/>
         <input
           type='password'
           onChange={this._handleChange}
-          name='passwordConfirmation'
+          name='encryptedPasswordConfirmation'
           placeholder='Confirm'
-          value={user.get('passwordConfirmation')}/>
+          value={user.get('encryptedPasswordConfirmation')}/>
         <input
           type='submit'
           value='Register'/>

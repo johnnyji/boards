@@ -12,7 +12,7 @@ defmodule Boards.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug :convert_to_snake_case
+    plug :snake_case_params
   end
 
   scope "/", Boards do
@@ -30,11 +30,27 @@ defmodule Boards.Router do
     end
   end
 
-  # Converts incoming params into `snake_case` so it matches the convention of Elixir
-  defp convert_to_snake_case(conn, params) do
+   # Calls the internal functions to convert the params appropriately
+  defp snake_case_params(conn, _opts) do
     IEx.pry
-    IO.puts("body_params: " <> conn.body_params)
-    IO.puts("body_params: " <> conn.body_params)
+    %{conn | params: snake_case_param(conn.params)}
   end
-    
+
+  # Traverses through each k/v pair and recursively converts keys into `snake_case`
+  defp snake_case_param(%{} = params) do
+    for {key, val} <- params,
+      into: %{},
+      do: {snake_case_key(key), snake_case_param(val)}
+  end
+  # When we've traversed the map and come to the final value, we return that value
+  defp snake_case_param(value), do: value
+
+  defp snake_case_key(key) do
+    key
+    |> String.replace(~r/([A-Z]+)([A-Z][a-z])/, ~S"\1_\2")
+    |> String.replace(~r/([a-z\d])([A-Z])/, ~S"\1_\2")
+    |> String.replace(~r/-/, "_")
+    |> String.downcase
+  end
+
 end

@@ -40,7 +40,7 @@ defmodule Boards.User do
   defp generate_encrypted_password(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
     # puts the newly encrypted password as the :encrypted_password field in the changeset
     IEx.pry
-    %{changeset | encrypted_password: Comeonin.Bcrypt.hashpwsalt(password))}
+    %{changeset | encrypted_password: Comeonin.Bcrypt.hashpwsalt(password)}
   end
 
   defp generate_encrypted_password(changeset), do: changeset

@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import pureRender from 'pure-render-decorator';
-
+import pureRender from 'pure-render-decorator'
 import {register} from '../../actions/AuthActionCreators';
 import {updateField} from '../../actions/RegistrationActionCreators';
 

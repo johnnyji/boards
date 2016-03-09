@@ -1,22 +1,19 @@
-import fetch from 'fetch';
-
-
 /*
   Methods for AJAX calls
  */
 export default {
 
   get(path) {
-    return new Promise((resolve, reject)) {
+    return new Promise((resolve, reject) => {
       fetch(path)
         .then((res) => res.json())
         .then(resolve)
         .catch(reject);
-    }
+    });
   },
 
   post(path, data) {
-    return new Promise((resolve, reject)) {
+    return new Promise((resolve, reject) => {
       fetch(path, {
         method: 'post',
         headers: {
@@ -28,7 +25,7 @@ export default {
         .then((res) => res.json())
         .then(resolve)
         .catch(reject);
-    }
+    });
   } 
 
 }

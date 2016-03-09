@@ -22,7 +22,7 @@ var config = module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.sass'],
+    extensions: ['', '.js', '.sass', 'json'],
     modulesDirectories: ['node_modules']
   },
 
@@ -44,10 +44,18 @@ var config = module.exports = {
       }
     ]
   },
-
   plugins: [
     new ExtractTextPlugin('css/application.css'),
-  ]
+    new webpack.ProvidePlugin({
+      'Promise': 'exports?global.Promise!es6-promise',
+      'window.fetch': 'exports?self.fetch!whatwg-fetch'
+    })
+  ],
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    dns: 'empty'
+  }
 };
 
 if (process.env.NODE_ENV === 'production') {

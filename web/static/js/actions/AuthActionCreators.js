@@ -11,7 +11,7 @@ export default {
 
   register(user) {
     return (dispatch) => {
-      http.post('/api/v1/registrations', user) 
+      http.post('/api/v1/registrations', {user}) 
         .then((res) => {
           debugger;
           localStorage.setItem('jwt', res.jwt);

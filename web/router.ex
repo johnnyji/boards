@@ -13,10 +13,15 @@ defmodule Boards.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug :snake_case_params
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", Boards do
     pipe_through :browser
+
+    post "/session", SessionController, :create
+    delete "/session", SessionController, :delete
 
     # Routing will be done on the front-end using `react-router`
     get "*path", PageController, :index

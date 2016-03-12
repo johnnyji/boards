@@ -31817,7 +31817,7 @@
 
 	var _RegistrationsNew2 = _interopRequireDefault(_RegistrationsNew);
 
-	var _SessionsNew = __webpack_require__(270);
+	var _SessionsNew = __webpack_require__(269);
 
 	var _SessionsNew2 = _interopRequireDefault(_SessionsNew);
 
@@ -32333,7 +32333,7 @@
 
 	var _AuthActionCreators = __webpack_require__(261);
 
-	var _RegistrationActionCreators = __webpack_require__(269);
+	var _RegistrationActionCreators = __webpack_require__(268);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32541,7 +32541,7 @@
 
 	var _http2 = _interopRequireDefault(_http);
 
-	var _AuthActionTypes = __webpack_require__(268);
+	var _AuthActionTypes = __webpack_require__(267);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33610,8 +33610,7 @@
 
 
 /***/ },
-/* 267 */,
-/* 268 */
+/* 267 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33633,7 +33632,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 269 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33658,7 +33657,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 270 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

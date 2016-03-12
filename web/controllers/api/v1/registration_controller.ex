@@ -26,4 +26,5 @@ defmodule Boards.RegistrationController do
         |> render(RegistrationView, "error.json", changeset: changeset)
     end
   end
+  
 end

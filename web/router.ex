@@ -1,6 +1,6 @@
 defmodule Boards.Router do
   use Boards.Web, :router
-  import IEx, only: [pry: 0]
+  require IEx
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -19,10 +19,6 @@ defmodule Boards.Router do
 
   scope "/", Boards do
     pipe_through :browser
-
-    post "/session", SessionController, :create
-    delete "/session", SessionController, :delete
-
     # Routing will be done on the front-end using `react-router`
     get "*path", PageController, :index
   end
@@ -32,38 +28,28 @@ defmodule Boards.Router do
 
     scope "/v1" do
       post "/registrations", RegistrationController, :create
+
+      post "/session", SessionController, :create
+      delete "/session", SessionController, :delete 
     end
   end
 
-  # Transforms incoming responses from `camelCase` to `snake_case`
+  # Transforms incoming responses from `camelCase` to `snake_case`,
+  # no need to worry about outgoing params as they are handled by our
+  # JSON views (?)
   defp proper_case_params(conn, _opts) do
+    IEx.pry
     %{conn | params: snake_case_params(conn.params)}
-  end
-
-  # Transforms outgoing responses from `snake_case` to camelCase
-  defp proper_case_params(%Plug.Conn{resp_body: resp_body} = conn, _opts) when is_map(resp_body) do
-    %{conn | resp_body: camel_case_params(resp_body)} 
-  end
-
-  defp camel_case_params(params) when is_map(params) do
-    for {key, val} <- params,
-      into: %{},
-      do: {camel_case(key), camel_case_params(val)}
-  end
-  defp camel_case_params(final_val), do: final_val
-  defp camel_case(string) do
-    class_cased_string = string |> Mix.Utils.camelize
-    first_char = class_cased_string |> String.first
-    class_cased_string |> String.replace(first_char, String.downcase(first_char))
   end
 
   defp snake_case_params(%{} = params) do
     for {key, val} <- params,
       into: %{},
-      do: {snake_case(key), snake_case_param(val)}
+      do: {snake_case(key), snake_case_params(val)}
   end
+
   defp snake_case_params(final_val), do: final_val
 
-  defp snake_case(string), do: key |> Mix.Utils.underscore
+  defp snake_case(string), do: string |> Mix.Utils.underscore
 
 end

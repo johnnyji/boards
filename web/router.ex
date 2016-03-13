@@ -1,6 +1,5 @@
 defmodule Boards.Router do
   use Boards.Web, :router
-  require IEx
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -38,7 +37,6 @@ defmodule Boards.Router do
   # no need to worry about outgoing params as they are handled by our
   # JSON views (?)
   defp proper_case_params(conn, _opts) do
-    IEx.pry
     %{conn | params: snake_case_params(conn.params)}
   end
 

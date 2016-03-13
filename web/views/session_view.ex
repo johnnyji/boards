@@ -8,14 +8,18 @@ defmodule Boards.SessionView do
   """
   use Boards.Web, :view
 
+  @doc """
+  Since we've already specified the fields to serialize from the User struct in
+  user.ex, we can just return the user as a normal map without having to use the
+  `render_one` or `render_many` options
+
+  See: http://stackoverflow.com/questions/33281803/returning-a-list-gives-poison-encodeerror-unable-to-encode-value
+  """
   def render("show.json", %{jwt: jwt, user: user}) do
-    %{
-      jwt: jwt,
-      user: user
-    }
+    %{jwt: jwt, user: user}
   end  
 
-  def render("error.json") do
+  def render("error.json", _) do
     %{error: "Invalid Username or Password"}
   end
 

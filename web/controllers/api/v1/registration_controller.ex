@@ -2,7 +2,7 @@ defmodule Boards.RegistrationController do
   use Boards.Web, :controller
 
   import IEx, only: [pry: 0]
-  alias Boards.{Repo, User, SessionView}
+  alias Boards.{Repo, User, ChangesetView, SessionView}
 
   # Only fills empty required params with `nil`s when the controller
   # action is :create
@@ -23,7 +23,7 @@ defmodule Boards.RegistrationController do
         IEx.pry
         conn
         |> put_status(422)
-        |> render(RegistrationView, "error.json", changeset: changeset)
+        |> render(ChangesetView, "error.json", changeset: changeset)
     end
   end
   

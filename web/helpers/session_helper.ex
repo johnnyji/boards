@@ -13,10 +13,10 @@ defmodule Boards.SessionHelper do
   defp return_result(false, _user), do: :error
   
   # In the case that we find a user, check the passwords match 
-  defp check_password(%{"encrypted_password" => encrypted_password}, password) do
-    Comeonin.Bcrypt.checkpw(user.encrypted_password, encrypted_password)
+  defp check_password(user, password) when user |> is_map do
+    Comeonin.Bcrypt.checkpw(user["encrypted_password"], password)
   end
 
-  defp check_password(nil, password), do: false
+  defp check_password(nil, _password), do: false
   
  end

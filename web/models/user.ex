@@ -2,8 +2,18 @@ defmodule Boards.User do
   use Boards.Web, :model
 
   import Comeonin.Bcrypt
-  import IEx, only: [pry: 0]
   alias Ecto.Changeset
+
+  # Specifies which fields should be serialized into JSON from the User struct.
+  # We manually declare this for two reasons:
+  # 
+  # 1. The `encrypted_password` field should not be required by the front-end or sent
+  # 2. Because User is a struct, the `__struct__` field is not parsed properly by the poison encoder.
+  #    Therefore we need to leave that field out in order for our data to be properly JSON encoded
+  #
+  # See: http://stackoverflow.com/questions/32549712/encoding-a-ecto-model-to-json-in-elixir/32553676#32553676
+  # See: https://coderwall.com/p/fhsehq/fix-encoding-issue-with-ecto-and-poison
+  @derive {Poison.Encoder, only: [:first_name, :last_name, :email]}
 
   schema "users" do
     field :first_name, :string
@@ -39,7 +49,6 @@ defmodule Boards.User do
 
   defp generate_encrypted_password(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
     # puts the newly encrypted password as the :encrypted_password field in the changeset
-    IEx.pry
     %{changeset | encrypted_password: Comeonin.Bcrypt.hashpwsalt(password)}
   end
 

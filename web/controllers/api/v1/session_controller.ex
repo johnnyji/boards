@@ -1,5 +1,4 @@
 defmodule Boards.SessionController do
-  require IEx
   use Boards.Web, :controller
   import Boards.SessionHelper, only: [authenticate: 1]
 
@@ -24,7 +23,6 @@ defmodule Boards.SessionController do
 
   # Called when Guardian fails to authenticate
   def unauthenticated(conn, _) do
-    IEx.pry
     # TODO Should I be rendering `error.json`?
     conn
     |> put_status(403)

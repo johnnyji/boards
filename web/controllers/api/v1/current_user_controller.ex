@@ -4,7 +4,6 @@ defmodule Boards.CurrentUserController do
   plug Guardian.Plug.EnsureAuthenticated, handler: Boards.SessionController
 
   def show(conn, _) do
-    # TODO: This request takes 5 seconds! Why??
     case conn |> decode_and_verify_token do
       {:ok, _claims} ->
         user = conn |> Guardian.Plug.current_resource

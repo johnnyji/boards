@@ -11,7 +11,7 @@ defmodule Boards.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug ProperCase
+    plug ProperCase.Plug.SnakeCaseParams
     plug Guardian.Plug.VerifyHeader
     plug Guardian.Plug.LoadResource
   end

@@ -51,7 +51,7 @@ defmodule Boards.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.1"},
       {:guardian, "~> 0.10.1"},
-      {:proper_case, "~> 0.0.2"}
+      {:proper_case, "~> 0.1.1"}
     ]
   end
 

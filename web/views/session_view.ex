@@ -16,11 +16,11 @@ defmodule Boards.SessionView do
   See: http://stackoverflow.com/questions/33281803/returning-a-list-gives-poison-encodeerror-unable-to-encode-value
   """
   def render("show.json", %{jwt: jwt, user: user}) do
-    # TODO: Update `ProperCase` to allow for conversion to camelCase,
     %{
       jwt: jwt,
       user: user
     }
+    |> ProperCase.to_camel_case
   end
   
   @doc """

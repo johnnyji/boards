@@ -31846,23 +31846,23 @@
 
 	var _AuthContainer2 = _interopRequireDefault(_AuthContainer);
 
-	var _AppLayout = __webpack_require__(262);
+	var _AppLayout = __webpack_require__(263);
 
 	var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
-	var _BoardsShow = __webpack_require__(263);
+	var _BoardsShow = __webpack_require__(264);
 
 	var _BoardsShow2 = _interopRequireDefault(_BoardsShow);
 
-	var _HomeIndex = __webpack_require__(264);
+	var _HomeIndex = __webpack_require__(265);
 
 	var _HomeIndex2 = _interopRequireDefault(_HomeIndex);
 
-	var _RegistrationsNew = __webpack_require__(265);
+	var _RegistrationsNew = __webpack_require__(267);
 
 	var _RegistrationsNew2 = _interopRequireDefault(_RegistrationsNew);
 
-	var _SessionsNew = __webpack_require__(270);
+	var _SessionsNew = __webpack_require__(272);
 
 	var _SessionsNew2 = _interopRequireDefault(_SessionsNew);
 
@@ -32196,7 +32196,7 @@
 
 	var _AuthActionTypes = __webpack_require__(261);
 
-	var _SessionActionCreators = __webpack_require__(271);
+	var _SessionActionCreators = __webpack_require__(262);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32292,7 +32292,7 @@
 /* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -33312,6 +33312,58 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _SessionActionTypes = __webpack_require__(240);
+
+	var SessionActionCreators = {
+	  updateField: function updateField(field, value) {
+	    return {
+	      type: _SessionActionTypes.UPDATE_FIELD,
+	      data: { field: field, value: value }
+	    };
+	  },
+	  signIn: function signIn(_ref) {
+	    var _this = this;
+
+	    var email = _ref.email;
+	    var password = _ref.password;
+
+	    var data = {
+	      session: {
+	        email: email,
+	        password: password
+	      }
+	    };
+
+	    return function (dispatch) {
+	      http.post('/api/v1/session', data).then(function (res) {
+	        localStorage.setItem('jwt', res.jwt);
+	        dispatch(_this.setCurrentUser(res.user));
+	      }).catch(function (err) {
+	        debugger;
+	      });
+	    };
+	  },
+	  setCurrentUser: function setCurrentUser(user) {
+	    return {
+	      type: _SessionActionTypes.SET_CURRENT_USER,
+	      data: { user: user }
+	    };
+	  }
+	};
+
+	exports.default = SessionActionCreators;
+	module.exports = exports['default'];
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33379,7 +33431,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33433,7 +33485,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33453,7 +33505,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _CustomPropTypes = __webpack_require__(272);
+	var _CustomPropTypes = __webpack_require__(266);
 
 	var _CustomPropTypes2 = _interopRequireDefault(_CustomPropTypes);
 
@@ -33500,7 +33552,37 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 265 */
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(6);
+
+	var _reactImmutableProptypes = __webpack_require__(254);
+
+	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/*
+	 * Custom PropTypes
+	 */
+	exports.default = {
+	  user: _reactImmutableProptypes2.default.contains({
+	    firstName: _react.PropTypes.string.isRequired,
+	    lastName: _react.PropTypes.string.isRequired,
+	    email: _react.PropTypes.string.isRequired
+	  })
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33524,13 +33606,13 @@
 
 	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
 
-	var _pureRenderDecorator = __webpack_require__(266);
+	var _pureRenderDecorator = __webpack_require__(268);
 
 	var _pureRenderDecorator2 = _interopRequireDefault(_pureRenderDecorator);
 
 	var _AuthActionCreators = __webpack_require__(255);
 
-	var _RegistrationActionCreators = __webpack_require__(269);
+	var _RegistrationActionCreators = __webpack_require__(271);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33651,7 +33733,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 266 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33660,7 +33742,7 @@
 	 */
 	'use strict';
 
-	var shallowCompare = __webpack_require__(267);
+	var shallowCompare = __webpack_require__(269);
 
 
 
@@ -33690,13 +33772,13 @@
 
 
 /***/ },
-/* 267 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(268);
+	module.exports = __webpack_require__(270);
 
 /***/ },
-/* 268 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33725,7 +33807,7 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 269 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33750,7 +33832,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 270 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33774,11 +33856,11 @@
 
 	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
 
-	var _pureRenderDecorator = __webpack_require__(266);
+	var _pureRenderDecorator = __webpack_require__(268);
 
 	var _pureRenderDecorator2 = _interopRequireDefault(_pureRenderDecorator);
 
-	var _SessionActionCreators = __webpack_require__(271);
+	var _SessionActionCreators = __webpack_require__(262);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33872,88 +33954,6 @@
 	  }).isRequired
 	}, _temp2)) || _class) || _class);
 	exports.default = RegistrationsNew;
-	module.exports = exports['default'];
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _SessionActionTypes = __webpack_require__(240);
-
-	var SessionActionCreators = {
-	  updateField: function updateField(field, value) {
-	    return {
-	      type: _SessionActionTypes.UPDATE_FIELD,
-	      data: { field: field, value: value }
-	    };
-	  },
-	  signIn: function signIn(_ref) {
-	    var _this = this;
-
-	    var email = _ref.email;
-	    var password = _ref.password;
-
-	    var data = {
-	      session: {
-	        email: email,
-	        password: password
-	      }
-	    };
-
-	    return function (dispatch) {
-	      http.post('/api/v1/session', data).then(function (res) {
-	        localStorage.setItem('jwt', res.jwt);
-	        dispatch(_this.setCurrentUser(res.user));
-	      }).catch(function (err) {
-	        debugger;
-	      });
-	    };
-	  },
-	  setCurrentUser: function setCurrentUser(user) {
-	    return {
-	      type: _SessionActionTypes.SET_CURRENT_USER,
-	      data: { user: user }
-	    };
-	  }
-	};
-
-	exports.default = SessionActionCreators;
-	module.exports = exports['default'];
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(6);
-
-	var _reactImmutableProptypes = __webpack_require__(254);
-
-	var _reactImmutableProptypes2 = _interopRequireDefault(_reactImmutableProptypes);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/*
-	 * Custom PropTypes
-	 */
-	exports.default = {
-	  user: _reactImmutableProptypes2.default.contains({
-	    firstName: _react.PropTypes.string.isRequired,
-	    lastName: _react.PropTypes.string.isRequired,
-	    email: _react.PropTypes.string.isRequired
-	  })
-	};
 	module.exports = exports['default'];
 
 /***/ }

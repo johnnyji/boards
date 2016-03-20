@@ -1,6 +1,6 @@
 defmodule Boards.SessionView do
   @moduledoc """
-  Views are comprised on render functions that take in a view name, and
+  Views are comprised of render functions that take in a view name, and
   a map of attributes to render (called by the controller originally as a keyword list).
 
   The `render` functions of views will each return a map which will be the data transformed
@@ -16,11 +16,16 @@ defmodule Boards.SessionView do
   See: http://stackoverflow.com/questions/33281803/returning-a-list-gives-poison-encodeerror-unable-to-encode-value
   """
   def render("show.json", %{jwt: jwt, user: user}) do
-    %{jwt: jwt, user: user}
-  end  
-
-  def render("error.json", _) do
-    %{error: "Invalid Username or Password"}
+    # TODO: Update `ProperCase` to allow for conversion to camelCase,
+    %{
+      jwt: jwt,
+      user: user
+    }
   end
+  
+  @doc """
+  Returns an error message if the session wasn't authenticated properly
+  """
+  def render("error.json", _), do: %{error: "Invalid Username or Password"}
 
 end

@@ -2,11 +2,11 @@ defmodule Boards.ErrorView do
   use Boards.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found"
+    "Oops, we couldn't find what you were looking for!"
   end
 
   def render("500.html", _assigns) do
-    "Server internal error"
+    "Ouch, Server internal error"
   end
 
   # In case no render clause matches or no

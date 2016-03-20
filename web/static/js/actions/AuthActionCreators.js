@@ -2,12 +2,22 @@ import http from '../utils/http';
 import {
   REGISTER,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE} from '../action_types/AuthActionTypes';
+  REGISTER_FAILURE} from 'js/action_types/AuthActionTypes';
+import {setCurrentUser} from 'js/actions/SessionActionCreators';
 
-/*
-  Auth Action Creators
- */
-export default {
+const AuthActionCreators =  {
+
+  fetchCurrentUser() {
+    return (dispatch) => {
+      http.get('/api/v1/current_user')   
+        .then((res) => {
+          dispatch(setCurrentUser(res.user));
+        })
+        .catch((err) => {
+          debugger; 
+        });
+    };
+  },
 
   register(user) {
     return (dispatch) => {
@@ -39,3 +49,5 @@ export default {
   }
 
 };
+
+export default AuthActionCreators;

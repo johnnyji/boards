@@ -23,7 +23,15 @@ var config = module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.sass', 'json'],
-    modulesDirectories: ['node_modules']
+    modulesDirectories: [
+      'static',
+      'node_modules',
+      'web_modules'
+    ],
+    fallback: [
+      path.join(__dirname, 'web/static'),
+      path.join(__dirname, 'node_modules')
+    ]
   },
 
   module: {

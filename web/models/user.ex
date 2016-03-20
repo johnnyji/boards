@@ -1,7 +1,5 @@
 defmodule Boards.User do
   use Boards.Web, :model
-
-  import Comeonin.Bcrypt
   alias Ecto.Changeset
 
   # Specifies which fields should be serialized into JSON from the User struct.

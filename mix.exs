@@ -27,7 +27,8 @@ defmodule Boards.Mixfile do
         :gettext,
         :phoenix_ecto,
         :postgrex,
-        :comeonin
+        :comeonin,
+        :proper_case
       ]
     ]
   end
@@ -49,7 +50,8 @@ defmodule Boards.Mixfile do
       {:gettext, "~> 0.9"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.1"},
-      {:guardian, "~> 0.10.1"}
+      {:guardian, "~> 0.10.1"},
+      {:proper_case, "~> 0.0.2"}
     ]
   end
 

@@ -13,7 +13,7 @@ defmodule Boards.CurrentUserController do
       {:error, _reason} ->
         conn
         |> put_status(422)
-        |> render(Boards.SessionView, "error.json", error: "Not Found")
+        |> render(Boards.SessionView, "error.json", error: "User Not Found")
     end
   end
 

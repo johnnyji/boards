@@ -14,9 +14,4 @@ defmodule Boards.CurrentUserView do
     |> ProperCase.to_camel_case
   end
 
-  # Renders the error for when the user's token is expired
-  def render("error.json", %{guardian_failure: {:error, :token_expired}}) do
-    %{}
-  end
-
 end

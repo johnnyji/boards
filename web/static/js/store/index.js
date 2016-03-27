@@ -5,9 +5,7 @@
 import {createStore, applyMiddleware} from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {syncHistory} from 'react-router-redux';
-import reducers from '.././reducers/index';
-import {fromJS} from 'immutable';
+import reducers from 'js/reducers/index';
 
 // Transforms state data from Immutable to JS
 const transformToJs = (state) => {
@@ -24,11 +22,10 @@ const loggerMiddleware = createLogger({
   stateTransformer: transformToJs
 });
 
-export default function configureStore(browserHistory) {
-  const reduxRouterMiddleware = syncHistory(browserHistory);
+export default function configureStore() {
   const createStoreWithMiddleware = process.env.NODE_ENV === 'production'
-    ? applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware)(createStore)
-    : applyMiddleware(reduxRouterMiddleware, thunkMiddleware)(createStore);
+    ? applyMiddleware(thunkMiddleware, loggerMiddleware)(createStore)
+    : applyMiddleware(thunkMiddleware)(createStore);
 
   return createStoreWithMiddleware(reducers);
 }

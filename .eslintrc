@@ -6,6 +6,10 @@
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
+    "ecmaFeatures": {
+      "classes": true,
+      "jsx": true
+    },
     "ecmaVersion": 6,
     "sourceType": "module"
   },

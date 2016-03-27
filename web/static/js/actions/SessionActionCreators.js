@@ -1,6 +1,9 @@
 import {
   SET_CURRENT_USER,
-  UPDATE_FIELD} from 'js/action_types/SessionActionTypes';
+  SIGN_OUT_FAILURE,
+  SIGN_OUT_SUCCESS,
+  UPDATE_FIELD
+} from 'js/action_types/SessionActionTypes';
 import http from 'js/utils/http';
 
 const SessionActionCreators = {
@@ -31,6 +34,31 @@ const SessionActionCreators = {
           debugger;
           dispatch(SessionActionCreators.setCurrentUser(null));
         });
+    };
+  },
+
+  signOut() {
+    return (dispatch) => {
+      http.delete('api/v1/current_user')
+        .then((response) => {
+          localStorage.removeItem('jwt');
+          dispatch(SessionActionCreators.signOutSuccess());
+        })
+        .catch(() => {
+          dispatch(SessionActionCreators.signOutFailure());
+        });
+    };
+  },
+
+  signOutFailure() {
+    return {
+      type: SIGN_OUT_FAILURE
+    };
+  },
+
+  signOutSuccess() {
+    return {
+      type: SIGN_OUT_SUCCESS
     };
   },
 

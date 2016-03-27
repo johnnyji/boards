@@ -37,7 +37,7 @@ export default function RegistrationReducer(state = initialState, action) {
     case REGISTER_FAILURE:
       return state.merge({
         errors: state.get('errors').merge(action.data.errors),
-        registering: false,
+        registering: false
       });
 
     case REGISTER_SUCCESS:

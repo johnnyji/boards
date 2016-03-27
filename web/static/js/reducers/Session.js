@@ -1,6 +1,8 @@
 import Immutable from 'immutable';
 import {
   SET_CURRENT_USER,
+  SIGN_OUT_FAILURE,
+  SIGN_OUT_SUCCESS,
   UPDATE_FIELD} from 'js/action_types/SessionActionTypes';
 
 const initialState = Immutable.fromJS({
@@ -21,16 +23,22 @@ const initialState = Immutable.fromJS({
 
 export default function SessionReducer (state = initialState, action) {
   switch (action.type) {
-
-    case UPDATE_FIELD:
-      const {field, value} = action.data
+    case UPDATE_FIELD: {
+      const {field, value} = action.data;
       return state.setIn(['signInForm', 'values', field], value);
-
-    case SET_CURRENT_USER:
+    }
+    case SET_CURRENT_USER: {
       // Sets the current user after a successful sign in
       return state.set('currentUser', Immutable.fromJS(action.data.user));  
-
-    default:
+    }
+    case SIGN_OUT_SUCCESS: {
+      return state.set('currentUser', null);
+    }
+    case SIGN_OUT_FAILURE:
+      // TODO: What are we actually doing with this message?
+      return state.set('error', 'Unable to logout');
+    default: {
       return state;
+    }
   }
 }

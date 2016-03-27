@@ -16,7 +16,6 @@ const formFieldProps = ImmutablePropTypes.contains({
   email: PropTypes.string
 }).isRequired;
 
-
 @connect((state) => ({
   currentUser: state.session.get('currentUser'),
   errors: state.registration.get('errors'),

@@ -23,6 +23,7 @@ const SessionActionCreators = {
     return (dispatch) => {
       http.post('/api/v1/session', data)
         .then((response) => {
+          debugger;
           localStorage.setItem('jwt', response.jwt); 
           dispatch(SessionActionCreators.setCurrentUser(response.user));
         })

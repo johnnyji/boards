@@ -1,12 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {replace} from 'react-router-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import CustomPropTypes from 'js/utils/CustomPropTypes';
 import pureRender from 'pure-render-decorator'
 import {signIn, updateField} from 'js/actions/SessionActionCreators';
 
 const displayName = 'SessionNew';
 
 @connect((state) => ({
+  currentUser: state.session.get('currentUser'),
   errors: state.session.getIn(['signInForm', 'errors']),
   values: state.session.getIn(['signInForm', 'values'])
 }))
@@ -24,6 +27,12 @@ export default class SessionNew extends Component {
       email: PropTypes.string,
       password: PropTypes.string
     }).isRequired
+  };
+
+  componentWillReceiveProps() {
+    if (nextProps.currentUser) {
+      this.props.dispatch(replace('/'));
+    }
   };
 
   render() {

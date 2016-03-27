@@ -3,9 +3,7 @@ defmodule Boards.CurrentUserController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: Boards.SessionController
 
-  require IEx
   def show(conn, _) do
-    IEx.pry
     case conn |> decode_and_verify_token do
       {:ok, _claims} ->
         user = conn |> Guardian.Plug.current_resource

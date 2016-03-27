@@ -6,21 +6,17 @@ import {
 } from '../action_types/RegistrationActionTypes';
 import Immutable from 'immutable';
 
+const DEFAULT_FIELDS_STATE = Immutable.fromJS({
+  firstName: null,
+  lastName: null,
+  email: null,
+  encryptedPassword: null,
+  encryptedPasswordConfirmation: null
+});
+
 const initialState = Immutable.fromJS({
-  user: {
-    firstName: null,
-    lastName: null,
-    email: null,
-    encryptedPassword: null,
-    encryptedPasswordConfirmation: null
-  },
-  errors: {
-    firstName: null,
-    lastName: null,
-    email: null,
-    encryptedPassword: null,
-    encryptedPasswordConfirmation: null
-  }
+  user: DEFAULT_FIELDS_STATE,
+  errors: DEFAULT_FIELDS_STATE
 });
 
 export default function RegistrationReducer(state = initialState, action) {
@@ -29,6 +25,9 @@ export default function RegistrationReducer(state = initialState, action) {
     case UPDATE_FIELD:
       const {field, value} = action.data;
       return state.setIn(['user', field], value);
+
+    case REGISTER:
+      return state.merge({errors: DEFAULT_FIELDS_STATE});
 
     case REGISTER_FAILURE:
       return state.update('errors', (errors) => {

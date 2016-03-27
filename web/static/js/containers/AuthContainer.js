@@ -26,6 +26,8 @@ export default class AuthContainer extends Component {
   componentWillMount() {
     const {dispatch} = this.context; 
     
+    if (this.props.currentUser) return;
+    
     // TODO: Currently in order to fetch the current user, the client
     // is sending the JWT as a parameter to the API, however the API expects a
     // `name` and `email` field as seen in Boards.SessionHelper.authenticate/2
@@ -40,17 +42,16 @@ export default class AuthContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.fetchingCurrentUser && !nextProps.fetchingCurrentUser && !nextProps.fetchedCurrentUser) {
-      // Direct the user to the sign up page because they failed to authenticate
-      dispatch(replace('/sign_up'));
-    }
+    const {currentUser, dispatch} = this.props;
+    const {currentUser: nextCurrentUser} = nextProps;
+    
+    if (!currentUser && nextCurrentUser) return dispatch(replace('/'));
+    if (currentUser && !nextCurrentUser) return dispatch(replace('/sign_up'));
   }
 
   render() {
-    const {children, currentUser, fetchedCurrentUser, fetchingCurrentUser} = this.props;
-    
-    if (!fetchingCurrentUser && fetchedCurrentUser && currentUser) return children;
-    
-    return <div>Loading...</div>;
+    if (!this.props.currentUser) return <div>Loading...</div>;
+
+    return this.props.children; 
   }
 }

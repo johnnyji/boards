@@ -1,4 +1,4 @@
-import Immutable, {fromJS} from 'immutable';
+import Immutable from 'immutable';
 import {
   SET_CURRENT_USER,
   UPDATE_FIELD} from 'js/action_types/SessionActionTypes';
@@ -28,9 +28,9 @@ export default function SessionReducer (state = initialState, action) {
 
     case SET_CURRENT_USER:
       // Sets the current user after a successful sign in
-      return state.set('currentUser', fromJS(action.data.user));  
+      return state.set('currentUser', Immutable.fromJS(action.data.user));  
 
-
-    default: return state;
+    default:
+      return state;
   }
 }

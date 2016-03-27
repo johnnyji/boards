@@ -18,15 +18,15 @@ export default function AuthReducer (state = initialState, action) {
 
     case FETCH_CURRENT_USER_SUCCESS:
       return state.merge({
-      fetchingCurrentUser: false,
-      fetchedCurrentUser: true
-    });
+        fetchingCurrentUser: false,
+        fetchedCurrentUser: true
+      });
 
     case FETCH_CURRENT_USER_FAILURE:
       return state.merge({
-      fetchingCurrentUser: false,
-      fetchedCurrentUser: false
-    }); 
+        fetchingCurrentUser: false,
+        fetchedCurrentUser: false
+      }); 
 
     default: return state;
   }

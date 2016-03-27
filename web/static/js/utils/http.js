@@ -8,6 +8,15 @@ const buildHeaders = () => {
   };
 };
 
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) return response;
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
+};
+
+const parseJson = (response) => response.json();
+
 /*
   Methods for AJAX calls
  */
@@ -18,11 +27,9 @@ export default {
       fetch(path, {
         headers: buildHeaders() 
       })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.status >= 200 && response.status < 300) return resolve(response);
-          reject(response);
-        })
+        .then(checkStatus)
+        .then(parseJson)
+        .then(resolve)
         .catch(reject);
     });
   },
@@ -34,11 +41,9 @@ export default {
         headers: buildHeaders(),
         body: JSON.stringify(data)
       })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.status >= 200 && response.status < 300) return resolve(response);
-          reject(response);
-        })
+        .then(checkStatus)
+        .then(parseJson)
+        .then(resolve)
         .catch(reject);
     });
   } 

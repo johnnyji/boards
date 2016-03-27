@@ -2,6 +2,9 @@ defmodule Boards.User do
   use Boards.Web, :model
   alias Ecto.Changeset
 
+  # Fields that are allowed to be exposed when querying users
+  @public_fields [:id, :first_name, :last_name, :email]
+  
   # Specifies which fields should be serialized into JSON from the User struct.
   # We manually declare this for two reasons:
   # 
@@ -11,23 +14,19 @@ defmodule Boards.User do
   #
   # See: http://stackoverflow.com/questions/32549712/encoding-a-ecto-model-to-json-in-elixir/32553676#32553676
   # See: https://coderwall.com/p/fhsehq/fix-encoding-issue-with-ecto-and-poison
-  @derive {Poison.Encoder, only: [:first_name, :last_name, :email]}
+  @derive {Poison.Encoder, only: @public_fields}
 
   schema "users" do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
     field :encrypted_password, :string
-    field :encrypted_password_confirmation, :string, virtual: true
 
     timestamps
   end
 
   @required_fields ~w(first_name last_name email encrypted_password)
   @optional_fields ~w()
-
-  # Excludes the password from being returned by the DB
-  @derive {Poison.Encoder, except: [:encrypted_password]}
 
   @doc """
   The changeset transformations to run on user creation
@@ -46,7 +45,15 @@ defmodule Boards.User do
     |> generate_encrypted_password
   end
 
-  defp generate_encrypted_password(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
+  
+  @doc """
+  Exposes the list of fields that a user will return when queried
+  """
+  def get_public_fields do
+    @public_fields
+  end
+
+  defp generate_encrypted_password(%Changeset{changes: %{encrypted_password: password}} = changeset) do
     Changeset.put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
   end
 

@@ -1,14 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import {push, replace} from 'react-router-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import CustomPropTypes from 'js/utils/CustomPropTypes';
 import pureRender from 'pure-render-decorator'
 import TextField from 'material-ui/lib/text-field';
 import {register, updateField} from 'js/actions/RegistrationActionCreators';
 
 const displayName = 'RegistrationsNew';
+const formFieldProps = ImmutablePropTypes.contains({
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  encryptedPassword: PropTypes.string,
+  encryptedPasswordConfirmation: PropTypes.string,
+  email: PropTypes.string
+}).isRequired;
+
 
 @connect((state) => ({
+  currentUser: state.session.get('currentUser'),
   errors: state.registration.get('errors'),
   user: state.registration.get('user')
 }))
@@ -17,26 +27,20 @@ export default class RegistrationsNew extends Component {
   static displayName = displayName;
 
   static propTypes = {
-    errors: ImmutablePropTypes.contains({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      encryptedPassword: PropTypes.string,
-      encryptedPasswordConfirmation: PropTypes.string,
-      email: PropTypes.string
-    }).isRequired,
+    currentUser: CustomPropTypes.user,
     dispatch: PropTypes.func.isRequired,
-    user: ImmutablePropTypes.contains({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      encryptedPassword: PropTypes.string,
-      encryptedPasswordConfirmation: PropTypes.string,
-      email: PropTypes.string
-    }).isRequired
+    errors: formFieldProps,
+    user: formFieldProps
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser) {
+      this.props.dispatch(replace('/'));
+    }
+  }
 
   render() {
     const {user, errors} = this.props;
-    console.log(JSON.stringify(errors.toJS(), null, 2))
 
     return (
       <div>

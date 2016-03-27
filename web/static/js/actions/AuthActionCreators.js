@@ -14,11 +14,11 @@ const AuthActionCreators =  {
       dispatch(AuthActionCreators.fetchCurrentUserStart());
 
       http.get('/api/v1/current_user')   
-        .then((res) => {
+        .then((response) => {
           dispatch(AuthActionCreators.fetchCurrentUserSuccess());
-          dispatch(setCurrentUser(res.user));
+          dispatch(setCurrentUser(response.user));
         })
-        .catch(() => {
+        .catch((err) => {
           localStorage.removeItem('jwt');
           dispatch(AuthActionCreators.fetchCurrentUserFailure());
         });

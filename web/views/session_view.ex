@@ -7,8 +7,7 @@ defmodule Boards.SessionView do
   into JSON and sent over to our front-end   
   """
   use Boards.Web, :view
-  import ProperCase, only: [to_camel_case: 1]
-  require IEx
+  alias Boards.User
 
   @doc """
   Since we've already specified the fields to serialize from the User struct in
@@ -17,15 +16,16 @@ defmodule Boards.SessionView do
 
   See: http://stackoverflow.com/questions/33281803/returning-a-list-gives-poison-encodeerror-unable-to-encode-value
   """
-  def render("show.json", %{jwt: jwt, user: user} = response) do
-    IEx.pry
-    response |> to_camel_case
+  def render("show.json", %{jwt: jwt, user: user}) do
+    %{
+      jwt: jwt,
+      user: user |> Map.take(User.get_public_fields)
+    }
+    |> ProperCase.to_camel_case
   end
 
   def render("error.json", %{error: error}), do: %{error: error}
 
-  def render("forbidden.json", %{error: error}) do
-    %{error: error}
-  end
+  def render("forbidden.json", %{error: error}), do: %{error: error}
 
 end

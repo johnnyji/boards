@@ -32,7 +32,9 @@ export default class RegistrationsNew extends Component {
     currentUser: CustomPropTypes.user,
     dispatch: PropTypes.func.isRequired,
     errors: formFieldProps,
-    user: formFieldProps
+    user: formFieldProps,
+    registering: PropTypes.bool.isRequired,
+    registered: PropTypes.bool.isRequired
   };
 
   componentWillReceiveProps(nextProps) {

@@ -4,14 +4,18 @@ defmodule Boards.SessionController do
 
   plug :scrub_params, "session" when action in [:create]
 
+  require IEx
   def create(conn, %{"session" => session_params}) do
+    IEx.pry
     case session_params |> authenticate do
       {:ok, user} ->
+        IEx.pry
         {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
         conn
         |> put_status(201)
         |> render("show.json", jwt: jwt, user: user)
       {:error, _reason} ->
+        IEx.pry
         conn
         |> put_status(422)
         |> render("error.json", error: "Invalid Username/Password") 

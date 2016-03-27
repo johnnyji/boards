@@ -14,7 +14,7 @@ defmodule Boards.SessionController do
       {:error, _reason} ->
         conn
         |> put_status(422)
-        |> render("error.json") 
+        |> render("error.json", error: "Invalid Username/Password") 
     end
   end
 
@@ -23,10 +23,11 @@ defmodule Boards.SessionController do
 
   # Called when Guardian fails to authenticate
   def unauthenticated(conn, _) do
-    # TODO Should I be rendering `error.json`?
     conn
     |> put_status(403)
-    |> render("error.json")
+    |> render(Boards.SessionView, "forbidden.json", error: "Unauthenticated")
+    # Here we have to specify we're using the `SessionView` because
+    # this function can be also triggered from the `CurrentUserController`
   end
 
 end

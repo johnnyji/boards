@@ -1,5 +1,9 @@
 import {
-  UPDATE_FIELD} from '../action_types/RegistrationActionTypes';
+  UPDATE_FIELD,
+  REGISTER,
+  REGISTER_FAILURE,
+  REGISTER_SUCCESS
+} from '../action_types/RegistrationActionTypes';
 import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({
@@ -25,6 +29,11 @@ export default function RegistrationReducer(state = initialState, action) {
     case UPDATE_FIELD:
       const {field, value} = action.data;
       return state.setIn(['user', field], value);
+
+    case REGISTER_FAILURE:
+      return state.update('errors', (errors) => {
+        return errors.merge(action.data.errors);
+      });
 
     default:
       return state;

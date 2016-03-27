@@ -1,9 +1,10 @@
 defmodule Boards.SessionHelper do
   alias Boards.{Repo, User} 
   require IEx
-  
+
   def authenticate(%{"email" => email, "password" => password}) do
     user = Repo.get_by(User, email: String.downcase(email))
+    IEx.pry
     user
     |> check_password(password)
     |> return_result(user)

@@ -5,17 +5,14 @@ defmodule Boards.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(Boards.ErrorView, "404.html", []) ==
-           "Page not found"
+    assert render_to_string(Boards.ErrorView, "404.html", []) == "Oops, we couldn&#39;t find what you were looking for!"
   end
 
   test "render 500.html" do
-    assert render_to_string(Boards.ErrorView, "500.html", []) ==
-           "Server internal error"
+    assert render_to_string(Boards.ErrorView, "500.html", []) == "Ouch, Internal server error"
   end
 
   test "render any other" do
-    assert render_to_string(Boards.ErrorView, "505.html", []) ==
-           "Server internal error"
+    assert render_to_string(Boards.ErrorView, "505.html", []) == "Ouch, Internal server error"
   end
 end

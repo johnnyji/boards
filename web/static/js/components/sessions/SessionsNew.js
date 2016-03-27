@@ -2,16 +2,16 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pureRender from 'pure-render-decorator'
-import {updateField} from 'js/actions/SessionActionCreators';
+import {signIn, updateField} from 'js/actions/SessionActionCreators';
 
 const displayName = 'SessionNew';
 
 @connect((state) => ({
-  errors: state.registration.getIn(['signInForm', 'errors']),
-  session: state.session.getIn(['signInForm', 'values'])
+  errors: state.session.getIn(['signInForm', 'errors']),
+  values: state.session.getIn(['signInForm', 'values'])
 }))
 @pureRender
-export default class RegistrationsNew extends Component {
+export default class SessionNew extends Component {
   static displayName = displayName;
 
   static propTypes = {

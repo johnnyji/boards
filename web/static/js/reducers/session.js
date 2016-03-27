@@ -21,6 +21,7 @@ const initialState = Immutable.fromJS({
 
 export default function SessionReducer (state = initialState, action) {
   switch (action.type) {
+
     case UPDATE_FIELD:
       const {field, value} = action.data
       return state.setIn(['signInForm', 'values', field], value);
@@ -28,7 +29,8 @@ export default function SessionReducer (state = initialState, action) {
     case SET_CURRENT_USER:
       // Sets the current user after a successful sign in
       return state.set('currentUser', fromJS(action.data.user));  
-    
+
+
     default: return state;
   }
 }

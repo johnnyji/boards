@@ -58,4 +58,8 @@ defmodule Boards.ModelCase do
   def errors_on(model, data) do
     model.__struct__.changeset(model, data).errors
   end
+
+  def errors_on_create(model, data) do
+    model.__struct__.create_changeset(model, data).errors
+  end
 end

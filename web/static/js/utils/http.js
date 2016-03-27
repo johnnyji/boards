@@ -18,8 +18,11 @@ export default {
       fetch(path, {
         headers: buildHeaders() 
       })
-        .then((res) => res.json())
-        .then(resolve)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) return resolve(response);
+          reject(response);
+        })
         .catch(reject);
     });
   },
@@ -31,8 +34,11 @@ export default {
         headers: buildHeaders(),
         body: JSON.stringify(data)
       })
-        .then((res) => res.json())
-        .then(resolve)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.status >= 200 && response.status < 300) return resolve(response);
+          reject(response);
+        })
         .catch(reject);
     });
   } 

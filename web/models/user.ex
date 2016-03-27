@@ -6,7 +6,7 @@ defmodule Boards.User do
   # We manually declare this for two reasons:
   # 
   # 1. The `encrypted_password` field should not be required by the front-end or sent
-  # 2. Because User is a struct, the `__struct__` field is not parsed properly by the poison encoder.
+  # 2. Because User is a struct, the `__meta__` field is not parsed properly by the poison encoder.
   #    Therefore we need to leave that field out in order for our data to be properly JSON encoded
   #
   # See: http://stackoverflow.com/questions/32549712/encoding-a-ecto-model-to-json-in-elixir/32553676#32553676
@@ -18,6 +18,7 @@ defmodule Boards.User do
     field :last_name, :string
     field :email, :string
     field :encrypted_password, :string
+    field :encrypted_password_confirmation, :string, virtual: true
 
     timestamps
   end
@@ -37,11 +38,11 @@ defmodule Boards.User do
   def create_changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_format(:email, ~r/@/, message: 'Please enter an appropriate format for your email.')
-    |> validate_length(:encrypted_password, min: 5, message: 'Passwords should be at least 6 characters')
+    |> validate_format(:email, ~r/@/, message: "Please enter an appropriate email format")
+    |> validate_length(:encrypted_password, min: 6, message: "Passwords should be at least 6 characters")
     # Creates a virtual field called `password_confirmation` which will not be inserted into the DB
-    |> validate_confirmation(:encrypted_password_confirmation, message: 'Please make sure your passwords match!')
-    |> unique_constraint(:email, message: "This email is already taken.")
+    |> validate_confirmation(:encrypted_password, message: "Please make sure your passwords match!")
+    |> unique_constraint(:email, message: "#{params["email"]} is already taken")
     |> generate_encrypted_password
   end
 

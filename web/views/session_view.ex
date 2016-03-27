@@ -7,6 +7,8 @@ defmodule Boards.SessionView do
   into JSON and sent over to our front-end   
   """
   use Boards.Web, :view
+  import ProperCase, only: [to_camel_case: 1]
+  require IEx
 
   @doc """
   Since we've already specified the fields to serialize from the User struct in
@@ -15,17 +17,15 @@ defmodule Boards.SessionView do
 
   See: http://stackoverflow.com/questions/33281803/returning-a-list-gives-poison-encodeerror-unable-to-encode-value
   """
-  def render("show.json", %{jwt: jwt, user: user}) do
-    %{
-      jwt: jwt,
-      user: user
-    }
-    |> ProperCase.to_camel_case
+  def render("show.json", %{jwt: jwt, user: user} = response) do
+    IEx.pry
+    response |> to_camel_case
   end
-  
-  @doc """
-  Returns an error message if the session wasn't authenticated properly
-  """
-  def render("error.json", _), do: %{error: "Invalid Username or Password"}
+
+  def render("error.json", %{error: error}), do: %{error: error}
+
+  def render("forbidden.json", %{error: error}) do
+    %{error: error}
+  end
 
 end

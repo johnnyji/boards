@@ -1,12 +1,12 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
-import AuthContainer from '../containers/AuthContainer';
-import AppLayout from '../components/layouts/AppLayout';
-import BoardsShow from '../components/boards/BoardsShow';
-import HomeIndex from '../components/home/HomeIndex';
-import RegistrationsNew from '../components/registrations/RegistrationsNew';
-import SessionsNew from '../components/sessions/SessionsNew';
+import AuthContainer from 'js/containers/AuthContainer';
+import AppLayout from 'js/components/layouts/AppLayout';
+import BoardsShow from 'js/components/boards/BoardsShow';
+import HomeIndex from 'js/components/home/HomeIndex';
+import RegistrationsNew from 'js/components/registrations/RegistrationsNew';
+import SessionsNew from 'js/components/sessions/SessionsNew';
 
 export default (
   <Route component={AppLayout}>

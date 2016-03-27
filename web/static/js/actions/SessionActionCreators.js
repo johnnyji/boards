@@ -1,6 +1,7 @@
 import {
   SET_CURRENT_USER,
   UPDATE_FIELD} from 'js/action_types/SessionActionTypes';
+import http from 'js/utils/http';
 
 const SessionActionCreators = {
 
@@ -21,12 +22,13 @@ const SessionActionCreators = {
 
     return (dispatch) => {
       http.post('/api/v1/session', data)
-        .then((res) => {
-          localStorage.setItem('jwt', res.jwt); 
-          dispatch(this.setCurrentUser(res.user));
+        .then((response) => {
+          localStorage.setItem('jwt', response.jwt); 
+          dispatch(SessionActionCreators.setCurrentUser(response.user));
         })
         .catch((err) => {
           debugger;
+          dispatch(SessionActionCreators.setCurrentUser(null));
         });
     };
   },

@@ -1,18 +1,26 @@
-import React, {Children, Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import CustomPropTypes from 'js/utils/CustomPropTypes';
 import {fetchCurrentUser} from 'js/actions/AuthActionCreators';
 
 @connect((state) => ({
-  currentUser: state.session.get('currentUser')
+  currentUser: state.session.get('currentUser'),
+  fetchingCurrentUser: state.auth.get('fetchingCurrentUser'),
+  fetchedCurrentUser: state.auth.get('fetchedCurrentUser')
 }))
 export default class AuthContainer extends Component {
 
   static displayName = 'AuthContainer';
 
   static contextTypes = {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+  };
+
+  static propTypes = {
+    currentUser: CustomPropTypes.user,
+    fetchingCurrentUser: PropTypes.bool.isRequired,
+    fetchedCurrentUser: PropTypes.bool.isRequired
   };
 
   componentWillMount() {
@@ -31,15 +39,18 @@ export default class AuthContainer extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-    if (this.props.currentUser && !nextProps.currentUser) {
-      replace('/sign_up');
+  componentWillReceiveProps(nextProps) {
+    if (this.props.fetchingCurrentUser && !nextProps.fetchingCurrentUser && !nextProps.fetchedCurrentUser) {
+      // Direct the user to the sign up page because they failed to authenticate
+      dispatch(replace('/sign_up'));
     }
   }
 
   render() {
-    if (!this.props.currentUser) return <div>'Loading...'</div>;
+    const {children, currentUser, fetchedCurrentUser, fetchingCurrentUser} = this.props;
     
-    return Children.only(this.props.children);
+    if (!fetchingCurrentUser && fetchedCurrentUser && currentUser) return children;
+    
+    return <div>Loading...</div>;
   }
 }

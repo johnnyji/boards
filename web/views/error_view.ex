@@ -6,7 +6,7 @@ defmodule Boards.ErrorView do
   end
 
   def render("500.html", _assigns) do
-    "Ouch, Server internal error"
+    "Ouch, Internal server error"
   end
 
   # In case no render clause matches or no

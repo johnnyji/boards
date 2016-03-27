@@ -12,6 +12,6 @@ defmodule Boards.Repo.Migrations.CreateUser do
     end
 
     # Makes sure the email field is always unique
-    create unique_index(:user, [:email])
+    create unique_index(:users, [:email], message: "That email is already taken")
   end
 end

@@ -1,7 +1,9 @@
 import {
   UPDATE_FIELD,
   REGISTER,
-  REGISTER_FAILURE} from 'js/action_types/RegistrationActionTypes';
+  REGISTER_FAILURE,
+  REGISTER_SUCCESS
+} from 'js/action_types/RegistrationActionTypes';
 import {setCurrentUser} from 'js/actions/SessionActionCreators';
 import http from 'js/utils/http';
 
@@ -25,6 +27,7 @@ const RegistrationActionCreators = {
       http.post('/api/v1/registrations', {user}) 
         .then((response) => {
           localStorage.setItem('jwt', response.jwt);
+          dispatch(RegistrationActionCreators.registerSuccess());
           dispatch(setCurrentUser(response.user));
         })
         .catch((err) => {
@@ -44,6 +47,12 @@ const RegistrationActionCreators = {
   registerStart() {
     return {
       type: REGISTER
+    };
+  },
+
+  registerSuccess() {
+    return {
+      type: REGISTER_SUCCESS
     };
   }
 

@@ -20,7 +20,9 @@ const formFieldProps = ImmutablePropTypes.contains({
 @connect((state) => ({
   currentUser: state.session.get('currentUser'),
   errors: state.registration.get('errors'),
-  user: state.registration.get('user')
+  user: state.registration.get('user'),
+  registering: state.registration.get('registering'),
+  registered: state.registration.get('registered')
 }))
 @pureRender
 export default class RegistrationsNew extends Component {
@@ -34,16 +36,17 @@ export default class RegistrationsNew extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser) {
+    if (nextProps.currentUser && nextProps.registered) {
       this.props.dispatch(replace('/'));
     }
   }
 
   render() {
-    const {user, errors} = this.props;
-
+    const {user, errors, registering} = this.props;
+    
     return (
       <div>
+        {registering && <h4>Registering...</h4>}
         <form onSubmit={this._handleSubmit}>
           <h1>Welcome to Boards ya'll!</h1>
           <TextField

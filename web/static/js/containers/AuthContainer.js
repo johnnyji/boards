@@ -5,35 +5,22 @@ import CustomPropTypes from 'js/utils/CustomPropTypes';
 import {fetchCurrentUser} from 'js/actions/AuthActionCreators';
 
 @connect((state) => ({
-  currentUser: state.session.get('currentUser'),
-  fetchingCurrentUser: state.auth.get('fetchingCurrentUser'),
-  fetchedCurrentUser: state.auth.get('fetchedCurrentUser')
+  currentUser: state.session.get('currentUser')
 }))
 export default class AuthContainer extends Component {
 
   static displayName = 'AuthContainer';
 
-  static contextTypes = {
-    dispatch: PropTypes.func.isRequired,
-  };
-
   static propTypes = {
     currentUser: CustomPropTypes.user,
-    fetchingCurrentUser: PropTypes.bool.isRequired,
-    fetchedCurrentUser: PropTypes.bool.isRequired
+    dispatch: PropTypes.func.isRequired
   };
 
   componentWillMount() {
-    const {dispatch} = this.context; 
+    const {currentUser, dispatch} = this.props; 
     
-    if (this.props.currentUser) return;
-    
-    // TODO: Currently in order to fetch the current user, the client
-    // is sending the JWT as a parameter to the API, however the API expects a
-    // `name` and `email` field as seen in Boards.SessionHelper.authenticate/2
-    //
-    // How would I send the `name` and the `email` fields on load if I'm
-    // can't retrieve them?
+    if (currentUser) return;
+
     if (localStorage.getItem('jwt')) {
       dispatch(fetchCurrentUser());
     } else {

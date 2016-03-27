@@ -16,7 +16,9 @@ const DEFAULT_FIELDS_STATE = Immutable.fromJS({
 
 const initialState = Immutable.fromJS({
   user: DEFAULT_FIELDS_STATE,
-  errors: DEFAULT_FIELDS_STATE
+  errors: DEFAULT_FIELDS_STATE,
+  registering: false,
+  registered: false
 });
 
 export default function RegistrationReducer(state = initialState, action) {
@@ -27,11 +29,21 @@ export default function RegistrationReducer(state = initialState, action) {
       return state.setIn(['user', field], value);
 
     case REGISTER:
-      return state.merge({errors: DEFAULT_FIELDS_STATE});
+      return state.merge({
+        errors: DEFAULT_FIELDS_STATE,
+        registering: true
+      });
 
     case REGISTER_FAILURE:
-      return state.update('errors', (errors) => {
-        return errors.merge(action.data.errors);
+      return state.merge({
+        errors: state.get('errors').merge(action.data.errors),
+        registering: false,
+      });
+
+    case REGISTER_SUCCESS:
+      return state.set({
+        registering: false,
+        registered: true
       });
 
     default:

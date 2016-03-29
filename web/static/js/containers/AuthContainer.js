@@ -29,11 +29,9 @@ export default class AuthContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {currentUser, dispatch} = this.props;
-    const {currentUser: nextCurrentUser} = nextProps;
-    
-    if (!currentUser && nextCurrentUser) return dispatch(replace('/'));
-    if (currentUser && !nextCurrentUser) return dispatch(replace('/sign_up'));
+    if (!nextProps.currentUser) {
+      return this.props.dispatch(replace('/sign_up'));
+    }
   }
 
   render() {

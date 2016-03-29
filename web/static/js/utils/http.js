@@ -22,30 +22,31 @@ const parseJson = (response) => response.json();
  */
 export default {
 
+  delete(path) {
+    return fetch(path, {
+      headers: buildHeaders(),
+      method: 'delete'
+    })
+      .then(checkStatus)
+      .then(parseJson);
+  },
+
   get(path) {
-    return new Promise((resolve, reject) => {
-      fetch(path, {
-        headers: buildHeaders() 
-      })
-        .then(checkStatus)
-        .then(parseJson)
-        .then(resolve)
-        .catch(reject);
-    });
+    return fetch(path, {
+      headers: buildHeaders() 
+    })
+      .then(checkStatus)
+      .then(parseJson);
   },
 
   post(path, data) {
-    return new Promise((resolve, reject) => {
-      fetch(path, {
-        method: 'post',
-        headers: buildHeaders(),
-        body: JSON.stringify(data)
-      })
-        .then(checkStatus)
-        .then(parseJson)
-        .then(resolve)
-        .catch(reject);
-    });
+    return fetch(path, {
+      method: 'post',
+      headers: buildHeaders(),
+      body: JSON.stringify(data)
+    })
+      .then(checkStatus)
+      .then(parseJson);
   } 
 
 };

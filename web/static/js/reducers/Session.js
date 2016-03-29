@@ -32,11 +32,13 @@ export default function SessionReducer (state = initialState, action) {
       return state.set('currentUser', Immutable.fromJS(action.data.user));  
     }
     case SIGN_OUT_SUCCESS: {
+      debugger;
       return state.set('currentUser', null);
     }
-    case SIGN_OUT_FAILURE:
+    case SIGN_OUT_FAILURE: {
       // TODO: What are we actually doing with this message?
       return state.set('error', 'Unable to logout');
+    }
     default: {
       return state;
     }

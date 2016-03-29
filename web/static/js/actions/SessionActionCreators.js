@@ -39,12 +39,13 @@ const SessionActionCreators = {
 
   signOut() {
     return (dispatch) => {
-      http.delete('api/v1/current_user')
-        .then((response) => {
+      http.delete('api/v1/session')
+        .then(() => {
           localStorage.removeItem('jwt');
           dispatch(SessionActionCreators.signOutSuccess());
         })
-        .catch(() => {
+        .catch((err) => {
+          debugger;
           dispatch(SessionActionCreators.signOutFailure());
         });
     };
@@ -57,6 +58,7 @@ const SessionActionCreators = {
   },
 
   signOutSuccess() {
+    debugger;
     return {
       type: SIGN_OUT_SUCCESS
     };

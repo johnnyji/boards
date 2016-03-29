@@ -24,6 +24,12 @@ defmodule Boards.SessionView do
     |> ProperCase.to_camel_case
   end
 
+  @doc """
+  Must provide some sort of a key/value in response so that the `whatwg-fetch` library
+  in JavaScript can parse it properly
+  """
+  def render("delete.json", _), do: %{deleted: true}
+
   def render("error.json", %{error: error}), do: %{error: error}
 
   def render("forbidden.json", %{error: error}), do: %{error: error}

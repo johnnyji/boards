@@ -30,9 +30,8 @@ const RegistrationActionCreators = {
           dispatch(RegistrationActionCreators.registerSuccess());
           dispatch(setCurrentUser(response.user));
         })
-        .catch((err) => {
-          debugger;
-          dispatch(RegistrationActionCreators.registerFailure(err.response.errors));
+        .catch((response) => {
+          dispatch(RegistrationActionCreators.registerFailure(response.errors));
         });
     };
   },

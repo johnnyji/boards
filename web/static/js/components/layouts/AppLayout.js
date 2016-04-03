@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import AppHeader from './AppHeader';
 
 const displayName = 'AppLayout';
 
@@ -25,7 +24,6 @@ export default class AppLayout extends Component {
   render() {
     return (
       <main className={displayName}>
-        <AppHeader />
         {this.props.children}
       </main>
     );

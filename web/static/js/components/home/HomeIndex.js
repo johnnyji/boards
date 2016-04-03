@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CustomPropTypes from 'js/utils/CustomPropTypes';
+import AppHeader from 'js/components/layouts/AppHeader';
 
 const displayName = 'HomeIndex';
 
@@ -18,10 +19,10 @@ export default class HomeIndex extends Component {
   render() {
     return (
       <div>
+        <AppHeader />
         Home Index!
         {this.props.currentUser.get('firstName')}
       </div>
     );
   }
 }
-

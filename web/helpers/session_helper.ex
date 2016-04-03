@@ -12,9 +12,7 @@ defmodule Boards.SessionHelper do
   defp return_result(false, _user), do: :error
   
   # In the case that we find a user, check the passwords match 
-  require IEx
   defp check_password(user, password) when is_map(user) do
-    IEx.pry
     Comeonin.Bcrypt.checkpw(password, user.encrypted_password)
   end
 

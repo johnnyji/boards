@@ -11,7 +11,7 @@ defmodule Boards.SessionController do
         conn
         |> put_status(201)
         |> render("show.json", jwt: jwt, user: user)
-      {:error, _reason} ->
+      :error ->
         conn
         |> put_status(422)
         |> render("error.json", error: "Invalid Username/Password") 
@@ -27,7 +27,6 @@ defmodule Boards.SessionController do
         |> Guardian.revoke!(claims) # Revokes the current JWT (signing out the user)
         
         conn
-        |> put_status(204)
         |> render("delete.json")
       {:error, _reason} ->
         conn

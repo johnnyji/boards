@@ -28,7 +28,9 @@ defmodule Boards.SessionView do
   Must provide some sort of a key/value in response so that the `whatwg-fetch` library
   in JavaScript can parse it properly
   """
-  def render("delete.json", _), do: %{deleted: true}
+  def render("delete.json", _) do 
+    %{ok: true}
+  end
 
   def render("error.json", %{error: error}), do: %{error: error}
 

@@ -29,7 +29,7 @@ export default class SessionNew extends Component {
     }).isRequired
   };
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
       this.props.dispatch(replace('/'));
     }

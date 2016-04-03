@@ -6,12 +6,8 @@ const AuthActionCreators =  {
   fetchCurrentUser() {
     return (dispatch) => {
       http.get('/api/v1/current_user')   
-        .then((response) => {
-          dispatch(setCurrentUser(response.user));
-        })
-        .catch((err) => {
-          localStorage.removeItem('jwt');
-        });
+        .then((response) => dispatch(setCurrentUser(response.user)))
+        .catch(() => localStorage.removeItem('jwt'));
     };
   }
 

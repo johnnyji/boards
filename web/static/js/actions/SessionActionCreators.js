@@ -26,12 +26,10 @@ const SessionActionCreators = {
     return (dispatch) => {
       http.post('/api/v1/session', data)
         .then((response) => {
-          debugger;
           localStorage.setItem('jwt', response.jwt); 
           dispatch(SessionActionCreators.setCurrentUser(response.user));
         })
         .catch((err) => {
-          debugger;
           dispatch(SessionActionCreators.setCurrentUser(null));
         });
     };
@@ -58,7 +56,6 @@ const SessionActionCreators = {
   },
 
   signOutSuccess() {
-    debugger;
     return {
       type: SIGN_OUT_SUCCESS
     };

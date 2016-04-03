@@ -3,12 +3,17 @@ import {connect} from 'react-redux';
 
 const displayName = 'AppLayout';
 
-@connect(() => ({})) // @connect makes `dispatch` avaliable to use a prop
+@connect((state) => ({
+  channel: state.session.get('channel'),
+  socket: state.session.get('socket') 
+})) // @connect makes `dispatch` avaliable to use a prop
 export default class AppLayout extends Component {
   static displayName = displayName;
 
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    channel: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
+    socket: PropTypes.object
   };
 
   static childContextTypes = {

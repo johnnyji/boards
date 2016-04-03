@@ -1,12 +1,20 @@
 defmodule Boards.UserSocket do
   use Phoenix.Socket
+  
+  alias Boards.{GuardianSerializer, Repo, User}
 
-  ## Channels
-  # channel "rooms:*", Boards.RoomChannel
+  # Channels
+  #
+  # Routes which topics should be handled by which Channel module.
+  # Here, any routes that begin with "user:" are handled by the UserChannel
+  channel "users:*", Boards.UserChannel
+  channel "boards:*", Boards.BoardsChannel
 
-  ## Transports
+  # Transports
   transport :websocket, Phoenix.Transports.WebSocket
-  # transport :longpoll, Phoenix.Transports.LongPoll
+
+  # Fallback to long-polling in case web sockets aren't available
+  transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -19,9 +27,22 @@ defmodule Boards.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  require IEx
+  def connect(%{"jwt" => jwt}, socket) do
+    case jwt |> Guardian.decode_and_verify do
+      {:ok, claims} ->
+        case claims["sub"] |> GuardianSerializer.from_token do
+          {:ok, user} ->
+            {:ok, assign(socket, :current_user, user)}
+          {:error, _reason} ->
+            :error
+        end
+      {:error, _reason} ->
+        :error
+    end
   end
+
+  def connect(_params, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
@@ -33,5 +54,6 @@ defmodule Boards.UserSocket do
   #     Boards.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+  def id(socket), do: "users_socket:#{socket.assigns.current_user.id}" 
+
 end

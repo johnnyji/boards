@@ -4,7 +4,7 @@ import {
   REGISTER_FAILURE,
   REGISTER_SUCCESS
 } from 'js/action_types/RegistrationActionTypes';
-import {setCurrentUser} from 'js/actions/SessionActionCreators';
+import {connectSocket, setCurrentUser} from 'js/actions/SessionActionCreators';
 import http from 'js/utils/http';
 
 
@@ -29,6 +29,7 @@ const RegistrationActionCreators = {
           localStorage.setItem('jwt', response.jwt);
           dispatch(RegistrationActionCreators.registerSuccess());
           dispatch(setCurrentUser(response.user));
+          dispatch(connectSocket(response.user));
         })
         .catch((response) => {
           dispatch(RegistrationActionCreators.registerFailure(response.errors));

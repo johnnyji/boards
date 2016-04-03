@@ -1,10 +1,13 @@
 import {
+  CONNECT_SOCKET_FAILURE,
+  CONNECT_SOCKET_SUCCESS,
   SET_CURRENT_USER,
   SIGN_OUT_FAILURE,
   SIGN_OUT_SUCCESS,
   UPDATE_FIELD
 } from 'js/action_types/SessionActionTypes';
 import http from 'js/utils/http';
+import {Socket} from 'js/phoenix';
 
 const SessionActionCreators = {
 
@@ -27,6 +30,7 @@ const SessionActionCreators = {
       http.post('/api/v1/session', data)
         .then((response) => {
           localStorage.setItem('jwt', response.jwt); 
+          dispatch(SessionActionCreators.connectSocket(response.user));
           dispatch(SessionActionCreators.setCurrentUser(response.user));
         })
         .catch((err) => {
@@ -65,6 +69,39 @@ const SessionActionCreators = {
     return {
       type: SET_CURRENT_USER,
       data: {user}
+    };
+  },
+
+  connectSocket(user) {
+    return (dispatch) => {
+      // Creates a new socket and passes in our created `conn` object with `jwt` as
+      // a param to authorize the user in `Boards.UserSocket.connect`
+      const socket = new Socket('/socket', {params: {jwt: localStorage.getItem('jwt')}});
+      // Initializes the socket connection
+      socket.connect();
+      // Joins our current user's channel
+      const channel = socket.channel(`users:${user.id}`);
+      channel
+        .join()
+        .receive('ok', () => {
+          dispatch(SessionActionCreators.connectSocketSuccess({socket, channel}));
+        })
+        .receive('error', () => {
+          dispatch(SessionActionCreators.connectSocketFailure());
+        });
+    };
+  },
+
+  connectSocketFailure() {
+    return {
+      type: CONNECT_SOCKET_FAILURE
+    };
+  },
+
+  connectSocketSuccess({socket, channel}) {
+    return {
+      type: CONNECT_SOCKET_SUCCESS,
+      data: {socket, channel}
     };
   }
 

@@ -21,6 +21,10 @@ defmodule Boards.User do
     field :last_name, :string
     field :email, :string
     field :encrypted_password, :string
+    
+    # Called `owned_boards` to differentiate between ones created to this user
+    # and ones this user was added to
+    has_many :owned_boards, Boards.Board
 
     timestamps
   end

@@ -22,6 +22,7 @@ defmodule Boards.SessionController do
   def create_instagram(conn, %{"access_token" => access_token, "user" => user} = session_params) do
     case session_params |> authenticate do
       {:ok, found_user} ->
+        IEx.pry
         # Render the found user
       :not_found ->
         # Create the user if it's not found    

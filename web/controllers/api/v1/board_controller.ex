@@ -28,21 +28,21 @@ defmodule Boards.BoardController do
 
     # Create a changeset for a `board` that is associated with the current user
     # Ecto.build_assoc(current_user, :owned_boards) -> %Board{user_id: current_user.id}
-    changeset = current_user
+    board_changeset = current_user
                 |> Ecto.build_assoc(:owned_boards)
                 |> Board.changeset(board_params)
 
-    case changeset |> Repo.insert do
+    case board_changeset |> Repo.insert do
       {:ok, board} ->
         conn
         |> put_status(201)
         |> render("create.json", board: board)
-      {:error, changeset} ->
-        # TODO: is the reason the changeset here?
+      {:error, board_changeset} ->
+        # TODO: is the reason the board_changeset here?
         IEx.pry
         conn
         |> put_status(422)
-        |> render("error.json", changeset: changeset)
+        |> render("error.json", changeset: board_changeset)
     end
   end
 

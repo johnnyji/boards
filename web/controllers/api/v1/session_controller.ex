@@ -18,6 +18,19 @@ defmodule Boards.SessionController do
     end
   end
 
+  require IEx
+  def create_instagram(conn, %{"access_token" => access_token, "user" => user} = session_params) do
+    case session_params |> authenticate do
+      {:ok, found_user} ->
+        # Render the found user
+      :not_found ->
+        # Create the user if it's not found    
+      :error ->
+        IEx.pry
+        # Handle a DB fetch error case
+    end
+  end
+
   def delete(conn, _) do
     # Retrieves the currently valid session claims
     case conn |> Guardian.Plug.claims do

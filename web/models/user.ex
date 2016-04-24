@@ -3,7 +3,15 @@ defmodule Boards.User do
   alias Ecto.Changeset
 
   # Fields that are allowed to be exposed when querying users
-  @public_fields [:id, :first_name, :last_name, :email]
+  @public_fields [
+    :id,
+    :first_name,
+    :last_name,
+    :email,
+    :access_token,
+    :profile_picture,
+    :username
+  ]
   
   # Specifies which fields should be serialized into JSON from the User struct.
   # We manually declare this for two reasons:
@@ -19,7 +27,10 @@ defmodule Boards.User do
   schema "users" do
     field :first_name, :string
     field :last_name, :string
+    field :username, :string
+    field :access_token, :string
     field :email, :string
+    field :profile_picture, :string
     field :encrypted_password, :string
     
     # Called `owned_boards` to differentiate between ones created to this user
@@ -29,8 +40,8 @@ defmodule Boards.User do
     timestamps
   end
 
-  @required_fields ~w(first_name last_name email encrypted_password)
-  @optional_fields ~w()
+  @required_fields ~w(first_name last_name username)
+  @optional_fields ~w(access_token encrypted_password email profile_picture)
 
   @doc """
   The changeset transformations to run on user creation
@@ -57,10 +68,12 @@ defmodule Boards.User do
     @public_fields
   end
 
+  # When the user has a password to be encrypted
   defp generate_encrypted_password(%Changeset{changes: %{encrypted_password: password}} = changeset) do
     Changeset.put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
   end
 
+  # When the user logins in through social media, thus no password is needed
   defp generate_encrypted_password(changeset), do: changeset
 
 end

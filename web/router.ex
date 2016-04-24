@@ -24,6 +24,7 @@ defmodule Boards.Router do
 
       get "/current_user", CurrentUserController, :show
       post "/session", SessionController, :create
+      post "/session/instagram", SessionController, :create_instagram
       delete "/session", SessionController, :delete 
 
       resources "boards", BoardsController, only: [:index, :create]
